@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TimeFlow</string>
+    <string name="open_nav">Open Navigation drawer</string>
+    <string name="close_nav">Open Navigation drawer</string>
+</resources>
