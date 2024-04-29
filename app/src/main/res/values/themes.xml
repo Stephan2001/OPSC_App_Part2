@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/blue</item>
         <item name="android:statusBarColor">@color/blue</item>
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/white</item>
     </style>
 
     <style name="Theme.TimeFlow_OPSC_POE_PART_2" parent="Base.Theme.TimeFlow_OPSC_POE_PART_2" />
