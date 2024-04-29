@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "774335858092",
+    "project_id": "timeflow-20b01",
+    "storage_bucket": "timeflow-20b01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774335858092:android:a04999fff3cd716905a609",
+        "android_client_info": {
+          "package_name": "com.example.timeflow_opsc_poe_part_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBipFNRrgXrdbjZ8awKlh0Fa_9T41UdlGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
