@@ -40,15 +40,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if(savedInstanceState == null){
             replaceFragment(HomeFragment())
-            navigationView.setCheckedItem(R.id.nav_home)
+
+            navigationView.setCheckedItem(R.id.nav_schedule)
         }
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_home -> replaceFragment(HomeFragment())
-            R.id.nav_home -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+            R.id.nav_schedule -> replaceFragment(HomeFragment())
+            R.id.nav_schedule -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
