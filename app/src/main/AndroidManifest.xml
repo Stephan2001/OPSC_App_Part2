@@ -13,9 +13,6 @@
         android:theme="@style/Theme.TimeFlow_OPSC_POE_PART_2"
         tools:targetApi="31">
         <activity
-            android:name=".testTemp"
-            android:exported="false" />
-        <activity
             android:name=".Login_Page"
             android:exported="false" />
         <intent-filter>
