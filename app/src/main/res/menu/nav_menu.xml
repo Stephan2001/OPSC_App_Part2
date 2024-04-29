@@ -6,19 +6,19 @@
     <group
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_schedule"
             android:icon="@drawable/baseline_home_24"
             android:title="Schedule"/>
         <item
-            android:id="@+id/nav_settigns"
+            android:id="@+id/nav_projects"
             android:icon="@drawable/baseline_settings_24"
             android:title="Projects"/>
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_statistics"
             android:icon="@drawable/baseline_share_24"
             android:title="Statistics"/>
         <item
-            android:id="@+id/nav_about"
+            android:id="@+id/nav_goals"
             android:icon="@drawable/baseline_info_24"
             android:title="Daily goals"/>
 
