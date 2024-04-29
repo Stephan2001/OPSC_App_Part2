@@ -17,6 +17,7 @@ import com.google.firebase.auth.auth
 class Login_Page : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
@@ -25,7 +26,7 @@ class Login_Page : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        auth = Firebase.auth
+
         val btnLogin = findViewById<Button>(R.id.btnSignIn)
         btnLogin.setOnClickListener ()
         {
@@ -50,7 +51,6 @@ class Login_Page : AppCompatActivity() {
     }
 
     private fun createAccount(email: String, password: String) {
-        // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -81,7 +81,7 @@ class Login_Page : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     //load pages with navigation
-                    //val intent = Intent(this, LoginSuccessful::class.java)
+                    val intent = Intent(this, testTemp::class.java)
                     startActivity(intent)
                     //updateUI(user)
                 } else {
@@ -92,7 +92,6 @@ class Login_Page : AppCompatActivity() {
                         "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
-                    //updateUI(null)
                 }
             }
         // [END sign_in_with_email]
