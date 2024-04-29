@@ -27,6 +27,13 @@ class Login_Page : AppCompatActivity() {
             insets
         }
 
+        var buttonReg : Button = findViewById(R.id.btnRegister)
+        buttonReg.setOnClickListener ()
+        {
+            val intent = Intent(this, Registration_page::class.java)
+            startActivity(intent)
+        }
+
         val btnLogin = findViewById<Button>(R.id.btnSignIn)
         btnLogin.setOnClickListener ()
         {
@@ -81,7 +88,6 @@ class Login_Page : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     //load pages with navigation
-                    val intent = Intent(this, testTemp::class.java)
                     startActivity(intent)
                     //updateUI(user)
                 } else {
