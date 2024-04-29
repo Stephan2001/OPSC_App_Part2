@@ -19,7 +19,7 @@
             android:title="Statistics"/>
         <item
             android:id="@+id/nav_goals"
-            android:icon="@drawable/baseline_info_24"
+            android:icon="@drawable/baseline_goals_24"
             android:title="Daily goals"/>
 
     </group>
