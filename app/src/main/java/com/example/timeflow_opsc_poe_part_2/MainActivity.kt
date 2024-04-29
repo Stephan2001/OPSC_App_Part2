@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if(savedInstanceState == null){
             replaceFragment(HomeFragment())
-
             navigationView.setCheckedItem(R.id.nav_schedule)
         }
 
