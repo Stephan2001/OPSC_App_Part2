@@ -57,7 +57,7 @@ class Login_Page : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
+                    setCurrentUser()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -72,6 +72,18 @@ class Login_Page : AppCompatActivity() {
             }
         // [END sign_in_with_email]
     }
+
+    fun setCurrentUser(){
+        val user = auth.currentUser
+        user?.let {
+            for (profile in it.providerData) {
+                CurrentUser.userID = profile.uid
+                Log.d("setuser", CurrentUser.userID)
+                break
+            }
+        }
+    }
+
     companion object {
         private const val TAG = "EmailPassword"
     }

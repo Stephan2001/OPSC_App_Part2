@@ -28,9 +28,12 @@ class ProjectsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val btn = view.findViewById<Button>(R.id.btnproject)
-        val currentUser = "one"
+        val currentUser = CurrentUser.userID
         rootNode = FirebaseDatabase.getInstance()
         projectReference = rootNode.getReference("projects/$currentUser")
+
+        //logic for inputs
+
         btn.setOnClickListener{
             writeProject("Building house", true)
         }

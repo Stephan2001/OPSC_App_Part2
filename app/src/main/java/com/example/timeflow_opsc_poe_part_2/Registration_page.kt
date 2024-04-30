@@ -33,7 +33,7 @@ class Registration_page : AppCompatActivity() {
         btnReg.setOnClickListener ()
         {
             val email: EditText = findViewById(R.id.txtEmail)
-            val pass: EditText = findViewById(R.id.txtPassword)
+            val pass: EditText = findViewById(R.id.txtPassword) // must be 6 chars long
             val firstName: EditText = findViewById(R.id.txtName)
             val lastName: EditText = findViewById(R.id.txtLastName)
             createAccount(email.text.toString(), pass.text.toString())
