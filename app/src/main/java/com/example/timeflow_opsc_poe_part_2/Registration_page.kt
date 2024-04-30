@@ -58,14 +58,11 @@ class Registration_page : AppCompatActivity() {
             }
         user?.let {
             for (profile in it.providerData) {
-
-                // UID specific to the provider
-                val uid = profile.uid
-
-                // Name, email address, and profile photo Url
+                CurrentUser.userID = profile.uid
                 val name = profile.displayName
                 val email = profile.email
                 Log.d("auth", name.toString() + " " + email.toString())
+                break
             }
         }
     }
