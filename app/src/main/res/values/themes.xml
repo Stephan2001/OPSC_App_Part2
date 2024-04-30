@@ -2,14 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TimeFlow_OPSC_POE_PART_2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
         <item name="android:statusBarColor">@color/blue</item>
-        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondary">@color/purple</item>
         <item name="colorSecondaryVariant">@color/white</item>
     </style>
 
-    <style name="Theme.TimeFlow_OPSC_POE_PART_2" parent="Base.Theme.TimeFlow_OPSC_POE_PART_2" >
-        <item name="colorPrimary">@color/grey</item>
-    </style>
+    <style name="Theme.TimeFlow_OPSC_POE_PART_2" parent="Base.Theme.TimeFlow_OPSC_POE_PART_2" ></style>
 </resources>
