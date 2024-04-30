@@ -1,6 +1,7 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -35,32 +36,48 @@ class Registration_page : AppCompatActivity() {
             val pass: EditText = findViewById(R.id.txtPassword)
             val firstName: EditText = findViewById(R.id.txtName)
             val lastName: EditText = findViewById(R.id.txtLastName)
-            createAccount(email.text.toString(), pass.text.toString(), firstName.text.toString(), lastName.text.toString())
+            createAccount(email.text.toString(), pass.text.toString())
+            addProfile(firstName.text.toString(), lastName.text.toString())
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun createAccount(email: String, password: String, name:String, lastName:String) {
+    private fun addProfile(firstName: String, lastName: String){
+        val user = Firebase.auth.currentUser
+
+        val profileUpdates = userProfileChangeRequest {
+            displayName = "$firstName $lastName"
+        }
+
+        user!!.updateProfile(profileUpdates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("auth", "User profile updated.")
+                }
+            }
+        user?.let {
+            for (profile in it.providerData) {
+
+                // UID specific to the provider
+                val uid = profile.uid
+
+                // Name, email address, and profile photo Url
+                val name = profile.displayName
+                val email = profile.email
+                Log.d("auth", name.toString() + " " + email.toString())
+            }
+        }
+    }
+
+    private fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(Registration_page.TAG, "createUserWithEmail:success")
+                    Log.d("auth", "createUserWithEmail:success")
                     val user = auth.currentUser
-                    val profileUpdates = userProfileChangeRequest {
-                        displayName = "$name $lastName"
-                    }
-
-                    user!!.updateProfile(profileUpdates)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d(Registration_page.TAG, "User profile updated.")
-                            }
-                        }
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(Registration_page.TAG, "createUserWithEmail:failure", task.exception)
+                    Log.w("auth", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
                         "Authentication failed.",
@@ -68,8 +85,5 @@ class Registration_page : AppCompatActivity() {
                     ).show()
                 }
             }
-    }
-    companion object {
-        private const val TAG = "EmailPassword"
     }
 }

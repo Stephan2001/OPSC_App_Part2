@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.auth.userProfileChangeRequest
 
 class Login_Page : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
