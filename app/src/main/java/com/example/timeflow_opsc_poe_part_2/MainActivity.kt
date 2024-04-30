@@ -33,14 +33,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if(savedInstanceState == null){
             replaceFragment(HomeFragment())
-            navigationView.setCheckedItem(R.id.nav_home)
+            navigationView.setCheckedItem(R.id.nav_schedule)
         }
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_home -> replaceFragment(HomeFragment())
             R.id.nav_schedule -> replaceFragment(ScheduleFragment())
             R.id.nav_projects -> replaceFragment(ProjectsFragment())
             R.id.nav_statistics -> replaceFragment(StatisticsFragment())

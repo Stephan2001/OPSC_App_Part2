@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -13,9 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="Add manual entry"
+        android:layout_marginBottom="16dp"
+        android:text="@string/label2"
         android:textColor="@color/purple"
         android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtProjectName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +24,17 @@
 
     <EditText
         android:id="@+id/txtProjectName"
-        android:layout_width="234dp"
-        android:layout_height="45dp"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="580dp"
         android:ems="10"
-        android:hint="Project name"
+        android:hint="@string/project"
         android:inputType="text"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="106dp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
