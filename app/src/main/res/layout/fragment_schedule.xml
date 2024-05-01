@@ -7,24 +7,25 @@
     tools:context=".ScheduleFragment">
 
     <TextView
-        android:layout_width="399dp"
-        android:layout_height="match_parent"
+        android:layout_width="390dp"
+        android:layout_height="48dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:text="Time entries"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         android:textSize="30dp" />
 
     <Button
         android:id="@+id/btnAddProject"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="75dp"
+        android:layout_height="72dp"
+        android:layout_centerInParent="true"
         android:layout_gravity="bottom"
         android:layout_marginStart="325dp"
         android:layout_marginBottom="15dp"
-        android:textColor="@color/white"
         android:background="@color/purple"
         android:text="+"
+        android:textColor="@color/white"
         android:textSize="42dp" />
 
 </FrameLayout>
