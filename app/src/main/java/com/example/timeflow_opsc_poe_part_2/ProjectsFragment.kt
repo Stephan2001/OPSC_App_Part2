@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -38,6 +39,7 @@ class ProjectsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val currentUser = CurrentUser.userID
+        val btnCreateProject = view.findViewById<TextView>(R.id.btnAddProject)
         listView = view.findViewById<ListView>(R.id.lvProjects)
         rootNode = FirebaseDatabase.getInstance()
         projectReference = rootNode.getReference("projects/$currentUser")
@@ -72,6 +74,11 @@ class ProjectsFragment : Fragment() {
             val element = parent.getItemAtPosition(position)
             var id = element.toString().trim()
             Toast.makeText(context, IDList[position], Toast.LENGTH_SHORT,).show()
+        }
+
+        btnCreateProject.setOnClickListener{
+            val intent = Intent(context, Project_Create::class.java)
+            startActivity(intent)
         }
     }
 
