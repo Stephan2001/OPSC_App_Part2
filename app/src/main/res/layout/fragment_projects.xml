@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +10,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Projects fragment"
-        android:textSize="30dp"
         android:layout_centerInParent="true"
-        android:textColor="@color/blue"/>
 
-</RelativeLayout>
+        android:text="Projects"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/btnAddProject"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="325dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/purple"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="42dp" />
+
+</FrameLayout>
