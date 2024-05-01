@@ -1,13 +1,33 @@
 {
   "project_info": {
-    "project_number": "774335858092",
-    "project_id": "timeflow-20b01",
-    "storage_bucket": "timeflow-20b01.appspot.com"
+    "project_number": "490478322688",
+    "firebase_url": "https://testingdata-4fe18-default-rtdb.firebaseio.com",
+    "project_id": "testingdata-4fe18",
+    "storage_bucket": "testingdata-4fe18.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:774335858092:android:a04999fff3cd716905a609",
+        "mobilesdk_app_id": "1:490478322688:android:73a4993583ebb866b984e5",
+        "android_client_info": {
+          "package_name": "com.example.testingfirebasestructures"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbuFI-fhv08p55sw-zGABCq52BuGmGrsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490478322688:android:075052504bf3013fb984e5",
         "android_client_info": {
           "package_name": "com.example.timeflow_opsc_poe_part_2"
         }
@@ -15,7 +35,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBipFNRrgXrdbjZ8awKlh0Fa_9T41UdlGg"
+          "current_key": "AIzaSyDbuFI-fhv08p55sw-zGABCq52BuGmGrsw"
         }
       ],
       "services": {

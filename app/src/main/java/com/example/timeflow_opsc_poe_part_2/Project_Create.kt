@@ -8,14 +8,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class Manual_Entry : AppCompatActivity() {
+class Project_Create : AppCompatActivity() {
     private  lateinit var rootNode : FirebaseDatabase
-    private  lateinit var timeEntriesReference : DatabaseReference
-
+    private  lateinit var projectReference : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_manual_entry)
+        setContentView(R.layout.activity_project_create)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -23,18 +22,15 @@ class Manual_Entry : AppCompatActivity() {
         }
         val currentUser = CurrentUser.userID
         rootNode = FirebaseDatabase.getInstance()
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser")
-
-
-
+        projectReference = rootNode.getReference("projects/$currentUser")
     }
 
-    fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String, photoRefernece: String) {
-        var myRef = timeEntriesReference.push()
+    fun writeProject(name: String, priority: Boolean) {
+        var myRef = projectReference.push()
         var key = myRef.key
-        val timeEntry = TimesheetEntry( date, project, startTime, endTime, photoRefernece)
+        val project = Project( name, priority)
         if (key != null) {
-            timeEntriesReference.child(key).setValue(timeEntry)
+            projectReference.child(key).setValue(project)
         }
     }
 }

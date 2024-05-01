@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnManualEntry"
         android:layout_width="266dp"
         android:layout_height="50dp"
         android:layout_marginTop="36dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/label" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnTimerEntry"
         android:layout_width="266dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -41,6 +41,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/btnManualEntry"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

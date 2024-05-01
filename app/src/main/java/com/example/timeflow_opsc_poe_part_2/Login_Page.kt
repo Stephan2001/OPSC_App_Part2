@@ -1,6 +1,7 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -42,41 +43,11 @@ class Login_Page : AppCompatActivity() {
             signIn(email.text.toString(), pass.text.toString())
         }
 
-        val btnReg = findViewById<Button>(R.id.btnRegister)
-        btnReg.setOnClickListener ()
-        {
-            val email: EditText = findViewById(R.id.txtEmail)
-            val pass: EditText = findViewById(R.id.txtPassword)
-            createAccount(email.text.toString(), pass.text.toString())
-        }
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
-
-    private fun createAccount(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    //updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    //updateUI(null)
-                }
-            }
-        // [END create_user_with_email]
     }
 
     private fun signIn(email: String, password: String) {
@@ -86,10 +57,10 @@ class Login_Page : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    //load pages with navigation
+                    setCurrentUser()
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    //updateUI(user)
+                    this.finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -102,6 +73,18 @@ class Login_Page : AppCompatActivity() {
             }
         // [END sign_in_with_email]
     }
+
+    fun setCurrentUser(){
+        val user = auth.currentUser
+        user?.let {
+            for (profile in it.providerData) {
+                CurrentUser.userID = profile.uid
+                Log.d("setuser", CurrentUser.userID)
+                break
+            }
+        }
+    }
+
     companion object {
         private const val TAG = "EmailPassword"
     }

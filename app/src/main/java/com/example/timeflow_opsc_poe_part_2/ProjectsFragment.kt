@@ -5,15 +5,40 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ListView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class ProjectsFragment : Fragment() {
+    private  lateinit var listView : ListView
+    private  lateinit var rootNode : FirebaseDatabase
+    private  lateinit var projectReference : DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_projects, container, false)
+         return inflater.inflate(R.layout.fragment_projects, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //val btn = view.findViewById<Button>(R.id.btnproject)
+        val currentUser = CurrentUser.userID
+        rootNode = FirebaseDatabase.getInstance()
+        projectReference = rootNode.getReference("projects/$currentUser")
+
+        //logic for inputs
+
+        //btn.setOnClickListener{
+        //    writeProject("Building house", true)
+        //}
+    }
+
 }
