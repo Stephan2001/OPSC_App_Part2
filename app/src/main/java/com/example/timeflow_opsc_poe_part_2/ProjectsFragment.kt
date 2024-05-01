@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -44,6 +45,7 @@ class ProjectsFragment : Fragment() {
         // setting up the list view
         val context = context as MainActivity
         val list = ArrayList<String>()
+        val IDList = ArrayList<String>()
 
         val lv = context.findViewById(R.id.lvProjects) as ListView
         val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, list)
@@ -52,11 +54,11 @@ class ProjectsFragment : Fragment() {
         // reading from dastabase
         projectReference.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
-
+                IDList.clear()
                 for(snapshot1 in snapshot.children){
                     val dc2 = snapshot1.getValue(Project::class.java)
                     val txt = " ${dc2?.name}"
-                    Log.w("ProjectList", "how i")
+                    IDList.add(snapshot1.key.toString())
                     txt?.let {list.add(it)}
                 }
                 adapter.notifyDataSetChanged()
@@ -66,6 +68,11 @@ class ProjectsFragment : Fragment() {
             }
         })
 
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val element = parent.getItemAtPosition(position)
+            var id = element.toString().trim()
+            Toast.makeText(context, IDList[position], Toast.LENGTH_SHORT,).show()
+        }
     }
 
 }
