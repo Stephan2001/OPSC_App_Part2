@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ListView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -14,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 
 class ProjectsFragment : Fragment() {
+    private  lateinit var listView : ListView
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
 
