@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         if(savedInstanceState == null){
-            replaceFragment(HomeFragment())
+            replaceFragment(ScheduleFragment())
             navigationView.setCheckedItem(R.id.nav_schedule)
         }
 
