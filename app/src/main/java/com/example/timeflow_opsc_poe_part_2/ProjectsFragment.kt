@@ -1,17 +1,23 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class ProjectsFragment : Fragment() {
@@ -29,16 +35,37 @@ class ProjectsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val btn = view.findViewById<Button>(R.id.btnproject)
+
         val currentUser = CurrentUser.userID
+        listView = view.findViewById<ListView>(R.id.lvProjects)
         rootNode = FirebaseDatabase.getInstance()
         projectReference = rootNode.getReference("projects/$currentUser")
 
-        //logic for inputs
+        // setting up the list view
+        val context = context as MainActivity
+        val list = ArrayList<String>()
 
-        //btn.setOnClickListener{
-        //    writeProject("Building house", true)
-        //}
+        val lv = context.findViewById(R.id.lvProjects) as ListView
+        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, list)
+        lv.adapter = adapter
+
+        // reading from dastabase
+        projectReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(Project::class.java)
+                    val txt = " ${dc2?.name}"
+                    Log.w("ProjectList", "how i")
+                    txt?.let {list.add(it)}
+                }
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(error: DatabaseError){
+
+            }
+        })
+
     }
 
 }
