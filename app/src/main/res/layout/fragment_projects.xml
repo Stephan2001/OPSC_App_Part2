@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProjectsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/textView"
@@ -16,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:text="Projects"
         android:textColor="@color/purple"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,19 +23,20 @@
 
     <Button
         android:id="@+id/btnAddProject"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="75sp"
+        android:layout_height="72sp"
+        android:layout_centerInParent="true"
         android:layout_gravity="bottom"
         android:background="@color/purple"
         android:text="+"
         android:textColor="@color/white"
-        android:textSize="42dp"
+        android:textSize="42sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lvProjects"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintVertical_bias="0.807" />
 
     <ListView
         android:id="@+id/lvProjects"
