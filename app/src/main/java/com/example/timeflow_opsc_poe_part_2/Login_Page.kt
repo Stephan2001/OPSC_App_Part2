@@ -60,6 +60,7 @@ class Login_Page : AppCompatActivity() {
                     setCurrentUser()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    this.finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

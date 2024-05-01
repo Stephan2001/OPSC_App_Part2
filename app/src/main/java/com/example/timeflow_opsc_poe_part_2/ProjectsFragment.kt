@@ -39,13 +39,4 @@ class ProjectsFragment : Fragment() {
         //}
     }
 
-    fun writeProject(name: String, priority: Boolean) {
-        var myRef = projectReference.push()
-        var key = myRef.key
-        val project = Project( name, priority)
-        if (key != null) {
-            projectReference.child(key).setValue(project)
-        }
-    }
-
 }
