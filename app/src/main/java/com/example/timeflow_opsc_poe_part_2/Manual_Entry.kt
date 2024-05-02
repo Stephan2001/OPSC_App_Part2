@@ -1,33 +1,23 @@
 package com.example.timeflow_opsc_poe_part_2
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.play.integrity.internal.w
-import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
-import java.io.FileDescriptor
-import java.io.IOException
 
 
 class Manual_Entry : AppCompatActivity() {
@@ -42,7 +32,7 @@ class Manual_Entry : AppCompatActivity() {
             val imageUri: Uri? = it
 
         })
-    @SuppressLint("WrongThread")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -55,6 +45,7 @@ class Manual_Entry : AppCompatActivity() {
         // image stuff
         val btnAddphoto = findViewById<Button>(R.id.btnAddPhoto)
         imageView = findViewById(R.id.imgTimesheet)
+        val imgnew = findViewById<ImageView>(R.id.imgTimesheet2)
 
         btnAddphoto.setOnClickListener{
             imageContract.launch("image/*")
@@ -66,10 +57,20 @@ class Manual_Entry : AppCompatActivity() {
 
         val btnSave = findViewById<Button>(R.id.btnSave)
         btnSave.setOnClickListener{
-
+            imgnew.setImageBitmap(byteArrayToBitmap(uploadImage()));
         }
     }
 
+    fun uploadImage(): ByteArray{
+        val bitmap = (imageView.getDrawable() as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        return stream.toByteArray()
+    }
+
+    fun byteArrayToBitmap(data: ByteArray): Bitmap {
+        return BitmapFactory.decodeByteArray(data, 0, data.size)
+    }
 
 
     fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String, photoRefernece: String) {
