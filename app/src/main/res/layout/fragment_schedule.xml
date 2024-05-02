@@ -16,7 +16,7 @@
         android:textSize="30dp" />
 
     <Button
-        android:id="@+id/btnAddProject"
+        android:id="@+id/btnAddEntry"
         android:layout_width="75dp"
         android:layout_height="72dp"
         android:layout_centerInParent="true"
