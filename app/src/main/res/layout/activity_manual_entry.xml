@@ -36,5 +36,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label" />
 
+    <ImageView
+        android:id="@+id/imgTimesheet"
+        android:layout_width="88dp"
+        android:layout_height="75dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_image_24"
+
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="170dp"></ImageView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="99dp"
+        android:layout_height="35dp"
+        android:text="Add photo"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="170dp" />
+
+    <Button
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="165dp"
+        android:layout_height="37dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="209dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
