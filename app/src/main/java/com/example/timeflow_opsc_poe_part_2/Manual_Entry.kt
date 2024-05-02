@@ -1,7 +1,14 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -12,18 +19,30 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.play.integrity.internal.w
+import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
+import java.io.FileDescriptor
+import java.io.IOException
 
 
 class Manual_Entry : AppCompatActivity() {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
+    private  lateinit var storage:FirebaseStorage
+
     private val imageContract = registerForActivityResult(ActivityResultContracts.GetContent(),
         ActivityResultCallback {
             imageView.setImageURI(it)
+            val imageUri: Uri? = it
+
         })
+    @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,7 +64,13 @@ class Manual_Entry : AppCompatActivity() {
         rootNode = FirebaseDatabase.getInstance()
         timeEntriesReference = rootNode.getReference("timeEntries/$currentUser")
 
+        val btnSave = findViewById<Button>(R.id.btnSave)
+        btnSave.setOnClickListener{
+
+        }
     }
+
+
 
     fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String, photoRefernece: String) {
         var myRef = timeEntriesReference.push()
