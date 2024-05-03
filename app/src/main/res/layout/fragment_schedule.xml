@@ -11,10 +11,16 @@
         android:layout_height="48dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:text="Time entries"
         android:textColor="@color/purple"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Recycler"
+        android:layout_width="300dp"
+        android:layout_height="422dp"
+        android:layout_gravity="center" />
 
     <Button
         android:id="@+id/btnAddEntry"
