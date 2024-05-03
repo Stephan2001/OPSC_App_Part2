@@ -16,13 +16,6 @@
         android:textColor="@color/purple"
         android:textSize="30dp" />
 
-    <ListView
-        android:id="@+id/lvProjects"
-        android:layout_width="374dp"
-        android:layout_height="478dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="20dp"/>
-
     <Button
         android:id="@+id/btnAddEntry"
         android:layout_width="75dp"

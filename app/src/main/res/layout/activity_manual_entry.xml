@@ -39,28 +39,60 @@
     <ImageView
         android:id="@+id/imgTimesheet"
         android:layout_width="88dp"
-        android:layout_height="75dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="164dp"
         android:scaleType="centerCrop"
         android:src="@drawable/baseline_image_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="170dp"></ImageView>
+    <ImageView
+        android:id="@+id/imgTimesheet2"
+        android:layout_width="88dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="272dp"
+
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_image_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="99dp"
-        android:layout_height="35dp"
+        android:layout_width="165dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:text="Add photo"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="170dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintStart_toEndOf="@+id/imgTimesheet"
+        app:layout_constraintTop_toBottomOf="@+id/txtProjectName" />
 
     <Button
         android:id="@+id/btnAddPhoto"
         android:layout_width="165dp"
-        android:layout_height="37dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="209dp" />
+        android:layout_height="48dp"
+        android:text="Add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.691"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="164dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

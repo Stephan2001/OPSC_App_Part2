@@ -7,6 +7,7 @@
         <item name="android:statusBarColor">@color/blue</item>
         <item name="colorSecondary">@color/purple</item>
         <item name="colorSecondaryVariant">@color/white</item>
+        <item name="color">@color/lightPurple</item>
     </style>
 
     <style name="Button">
@@ -14,5 +15,5 @@
         <item name="colorPrimaryVariant">@color/red</item>
     </style>
 
-    <style name="Theme.TimeFlow_OPSC_POE_PART_2" parent="Base.Theme.TimeFlow_OPSC_POE_PART_2" ></style>
+    <style name="Theme.TimeFlow_OPSC_POE_PART_2" parent="Base.Theme.TimeFlow_OPSC_POE_PART_2"></style>
 </resources>
