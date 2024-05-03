@@ -28,24 +28,21 @@
         tools:layout_editor_absoluteX="74dp"
         tools:layout_editor_absoluteY="105dp" />
 
+    <Spinner
+        android:id="@+id/mySpinnerProjects"
+        android:layout_width="335dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="388dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/imgTimesheet"
         android:layout_width="88dp"
         android:layout_height="75dp"
         android:layout_marginTop="164dp"
-
-        android:scaleType="centerCrop"
-        android:src="@drawable/baseline_image_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.229"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-    <ImageView
-        android:id="@+id/imgTimesheet2"
-        android:layout_width="88dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="272dp"
 
         android:scaleType="centerCrop"
         android:src="@drawable/baseline_image_24"
