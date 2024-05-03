@@ -14,6 +14,9 @@ import com.google.firebase.database.FirebaseDatabase
 
 class ScheduleFragment : Fragment() {
     val listData : MutableList<ParentData> = ArrayList()
+    private  lateinit var rootNode : FirebaseDatabase
+    private  lateinit var projectReference : DatabaseReference
+    val currentUser = CurrentUser.userID
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +54,12 @@ class ScheduleFragment : Fragment() {
         RecyclerView.layoutManager = LinearLayoutManager(context)
         RecyclerView.adapter = RecycleAdapter(context,listData)
 
+        // database
+        rootNode = FirebaseDatabase.getInstance()
+        projectReference = rootNode.getReference("projects/$currentUser")
     }
+
+
 
 
 }
