@@ -29,10 +29,5 @@ class GoalsFragment : Fragment() {
             startActivity(intent)
         }
 
-        val setOneTimeGoal = view.findViewById<Button>(R.id.btnOneTimeGoal)
-        setOneTimeGoal.setOnClickListener {
-            val intent = Intent(context, Set_One_Time_Goal::class.java)
-            startActivity(intent)
-        }
     }
 }
