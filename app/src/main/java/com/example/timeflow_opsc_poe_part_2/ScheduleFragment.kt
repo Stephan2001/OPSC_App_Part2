@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
@@ -17,6 +20,7 @@ class ScheduleFragment : Fragment() {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
     val currentUser = CurrentUser.userID
+    //var dateSelected = currentDate
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,13 +31,20 @@ class ScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val context = context as MainActivity
-
         val btnAddEntry = view.findViewById<Button>(R.id.btnAddEntry)
         btnAddEntry.setOnClickListener {
             val intent = Intent(context, Select_Option::class.java)
             startActivity(intent)
         }
+
+        // prior values
+        val context = context as MainActivity
+        var selectedDate = view.findViewById<TextView>(R.id.txtSelectedDate)
+        var changeDate = view.findViewById<ImageButton>(R.id.btnSelectDate)
+        changeDate.setOnClickListener {
+            DatePickerDialog(context).show()
+        }
+
         // expandable lists display
         val parentData: Array<String> = arrayOf("Andhra Pradesh", "Telangana", "Karnataka", "TamilNadu")
         val childDataData1: MutableList<ChildData> = mutableListOf(ChildData("Anathapur", "booma", null),ChildData("Chittoor", "booma", null))

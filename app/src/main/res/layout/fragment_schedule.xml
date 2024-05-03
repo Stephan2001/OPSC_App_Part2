@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,20 +8,19 @@
     tools:context=".ScheduleFragment">
 
     <TextView
-        android:layout_width="390dp"
+        android:layout_width="180dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:text="Time entries"
         android:textColor="@color/purple"
-        android:textSize="30dp"
-        />
+        android:textSize="30dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Recycler"
-        android:layout_width="372dp"
-        android:layout_height="525dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="17dp"/>
+        android:layout_width="355dp"
+        android:layout_height="466dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="160dp" />
 
     <Button
         android:id="@+id/btnAddEntry"
@@ -33,5 +33,25 @@
         android:text="+"
         android:textColor="@color/white"
         android:textSize="42dp" />
+
+    <ImageButton
+        android:id="@+id/btnSelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginStart="325dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/schedule" />
+
+    <TextView
+        android:id="@+id/txtSelectedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        />
 
 </FrameLayout>
