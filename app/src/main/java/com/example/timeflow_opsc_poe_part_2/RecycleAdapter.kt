@@ -1,11 +1,15 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,8 +43,14 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
 
             holder.apply {
                 val singleService = dataList.subList.first()
-                childTV?.text =singleService.time + "                                       " + singleService.duration
-                //childIMG?.setImageBitmap()
+                childTV?.text = singleService.time
+                if (singleService.bitmap !=null){
+                    childIMG?.setImageBitmap(singleService.bitmap)
+                }
+                childTT?.text = singleService.duration
+                childEdit.setOnClickListener {
+                    Log.d("btnPlsWork", "success")
+                }
             }
         }
     }
@@ -95,8 +105,10 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
         val downIV = row.findViewById(R.id.down_iv) as ImageView?
     }
     class ChildViewHolder(row: View) : RecyclerView.ViewHolder(row) {
-        val childTV = row.findViewById(R.id.child_Title) as TextView?
+        val childTV = row.findViewById(R.id.child_time) as TextView?
+        val childTT = row.findViewById(R.id.child_duration) as TextView?
         val childIMG = row.findViewById(R.id.imgDisplayTimesheet) as ImageView?
+        val childEdit = row.findViewById(R.id.btnEditItem) as ImageButton
     }
 
 }
