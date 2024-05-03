@@ -39,7 +39,8 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
 
             holder.apply {
                 val singleService = dataList.subList.first()
-                childTV?.text =singleService.time
+                childTV?.text =singleService.time + "                                       " + singleService.duration
+                //childIMG?.setImageBitmap()
             }
         }
     }
@@ -95,7 +96,7 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
     }
     class ChildViewHolder(row: View) : RecyclerView.ViewHolder(row) {
         val childTV = row.findViewById(R.id.child_Title) as TextView?
-
+        val childIMG = row.findViewById(R.id.imgDisplayTimesheet) as ImageView?
     }
-    
+
 }

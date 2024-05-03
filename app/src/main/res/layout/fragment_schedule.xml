@@ -17,7 +17,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exRecycle"
+        android:id="@+id/Recycler"
         android:layout_width="300dp"
         android:layout_height="422dp"
         android:layout_gravity="center" />

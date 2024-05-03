@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -46,6 +48,9 @@ class ScheduleFragment : Fragment() {
         listData.add(parentObj3)
         listData.add(parentObj4)
 
+        val exRecyclerView = view.findViewById<RecyclerView>(R.id.Recycler)
+        exRecyclerView.layoutManager = LinearLayoutManager(context)
+        exRecyclerView.adapter = RecycleAdapter(context,listData)
 
     }
 
