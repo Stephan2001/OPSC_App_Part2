@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -10,8 +11,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultCallback
@@ -29,9 +32,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
-class Manual_Entry : AppCompatActivity() {
+class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
@@ -45,6 +51,9 @@ class Manual_Entry : AppCompatActivity() {
         ActivityResultCallback {
             imageView.setImageURI(it)
         })
+
+    private val calender = Calendar.getInstance()
+    private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +86,22 @@ class Manual_Entry : AppCompatActivity() {
         btnSave.setOnClickListener{
             writeTimeEntry("Today", "Food", "1500", "1600")
             upLoadImage(uploadToBytes())
+        }
+
+        findViewById<TextView>(R.id.txtSetDate).setOnClickListener {
+            DatePickerDialog(
+                this,
+                object : DatePickerDialog.OnDateSetListener {
+                    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                        calender.set(year, month, dayOfMonth)
+                        displayFormatDate(calender.timeInMillis)
+                    }
+
+                },
+                calender.get(Calendar.YEAR),
+                calender.get(Calendar.MONTH),
+                calender.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
     }
 
@@ -152,6 +177,17 @@ class Manual_Entry : AppCompatActivity() {
         if (key != null) {
             timeEntriesReference.child(key).setValue(timeEntry)
         }
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        calender.set(year, month, dayOfMonth)
+        displayFormatDate(calender.timeInMillis)
+
+    }
+
+    private fun displayFormatDate(timestamp: Long) {
+        findViewById<TextView>(R.id.txtSetDate).text = formatter.format(timestamp)
+        Log.i("Formatting", timestamp.toString())
     }
 
 }
