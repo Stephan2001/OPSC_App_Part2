@@ -58,6 +58,7 @@ class ProjectsFragment : Fragment() {
         projectReference.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
                 IDList.clear()
+                list.clear()
                 for(snapshot1 in snapshot.children){
                     val dc2 = snapshot1.getValue(Project::class.java)
                     val txt = " ${dc2?.name}"
@@ -72,9 +73,8 @@ class ProjectsFragment : Fragment() {
         })
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val element = parent.getItemAtPosition(position)
-            var id = element.toString().trim()
-            deleteProject(id)
+            deleteProjectDialog(IDList[position])
+            adapter.notifyDataSetChanged()
         }
 
         btnCreateProject.setOnClickListener{
@@ -83,20 +83,27 @@ class ProjectsFragment : Fragment() {
         }
     }
 
-    fun deleteProject(id:String){
+    fun deleteProjectDialog(id:String){
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder
 
             .setTitle("Delete the Project?")
             .setPositiveButton("Delete") { dialog, which ->
-                // Do something.
+                deleteProject(id)
             }
             .setNegativeButton("Cancel") { dialog, which ->
-                // Do something else.
+                dialog.dismiss();
             }
 
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+    fun deleteProject(id:String){
+        projectReference.child(id).removeValue()
+        val context = context as MainActivity
+        Toast.makeText(context, "Project removed", Toast.LENGTH_SHORT).show()
+    }
+
 
 }
