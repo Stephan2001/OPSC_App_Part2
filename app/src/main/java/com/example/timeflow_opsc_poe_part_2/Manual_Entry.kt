@@ -173,6 +173,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 currentProject = projectsList[p2]
+                spinnerID.setSelection(p2)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

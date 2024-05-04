@@ -14,8 +14,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.Calendar
@@ -25,7 +28,7 @@ import java.util.Locale
 class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     val listData : MutableList<ParentData> = ArrayList()
     private  lateinit var rootNode : FirebaseDatabase
-    private  lateinit var projectReference : DatabaseReference
+    private  lateinit var timeEntriesReference : DatabaseReference
     val currentUser = CurrentUser.userID
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
@@ -43,6 +46,8 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val btnAddEntry = view.findViewById<Button>(R.id.btnAddEntry)
         btnAddEntry.setOnClickListener {
             val intent = Intent(context, Select_Option::class.java)
+            listData.removeAt(2)
+            updateDisplay()
             startActivity(intent)
         }
 
@@ -84,14 +89,37 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         listData.add(parentObj2)
         listData.add(parentObj3)
         listData.add(parentObj4)
-
-        val RecyclerView = view.findViewById<RecyclerView>(R.id.Recycler)
-        RecyclerView.layoutManager = LinearLayoutManager(context)
-        RecyclerView.adapter = RecycleAdapter(context,listData)
-
+        updateDisplay()
         // database
         rootNode = FirebaseDatabase.getInstance()
-        projectReference = rootNode.getReference("projects/$currentUser")
+        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser")
+        // reading data
+
+    }
+
+    /*fun readFromDatabase(){
+        timeEntriesReference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot){
+                listData.clear()
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(TimesheetEntry::class.java)
+                    val txt = " ${dc2?.id}      Name is ${dc2?.nane} , favourite food: ${dc2?.description}"
+                    txt?.let {list.add(it)}
+                    counter = dc2?.id
+                }
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(error:DatabaseError){
+
+            }
+        })
+    }*/
+
+    fun updateDisplay(){
+        val context = context as MainActivity
+        val RecyclerView = view?.findViewById<RecyclerView>(R.id.Recycler)
+        RecyclerView?.layoutManager = LinearLayoutManager(context)
+        RecyclerView?.adapter = RecycleAdapter(context,listData)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
