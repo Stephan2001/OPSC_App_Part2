@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val dc2 = snapshot1.getValue(Project::class.java)
                     if (dc2 != null) {
                         UserProjects.projectsList.add(dc2.name)
-
                         Log.w("errrrr", dc2.name)
                     }
                 }
