@@ -4,12 +4,19 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -19,6 +26,9 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
 
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("hh:mm a", Locale.UK)
+    val currentUser = CurrentUser.userID
+    private  lateinit var rootNode : FirebaseDatabase
+    private  lateinit var goalsReference : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +39,9 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        rootNode = FirebaseDatabase.getInstance()
+        goalsReference = rootNode.getReference("goals/$currentUser")
+        retrieveGoals()
         findViewById<TextView>(R.id.txtMinDailyTime).setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
             TimePickerDialog(
@@ -67,7 +79,18 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
                 false
             ).show()
         }
+
+        var btnSaveTimeDaily = findViewById<Button>(R.id.btnSaveTimeDaily)
+        var txtMinDailyTime = findViewById<TextView>(R.id.txtMinDailyTime)
+        var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
+        btnSaveTimeDaily.setOnClickListener{
+            if(txtMinDailyTime != null && txtMaxDailyTime != null){
+                writegoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString())
+            }
+        }
     }
+
+
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         calender.apply {
@@ -86,6 +109,30 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
     fun displayFormattedTime2(timestamp: Long) {
         findViewById<TextView>(R.id.txtMaxDailyTime).text = formatter.format(timestamp)
         Log.i("Formatting", timestamp.toString())
+    }
+
+    fun writegoals(min:String, max: String) {
+        val dailyGoals = DailyGoals(min, max)
+        goalsReference.setValue(dailyGoals)
+    }
+
+    fun retrieveGoals(){
+        goalsReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(DailyGoals::class.java)
+                    var txtMinDailyTime = findViewById<TextView>(R.id.txtMinDailyTime)
+                    var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
+                    if (dc2 != null) {
+                        txtMinDailyTime.text = dc2.DailyMin
+                        txtMaxDailyTime.text = dc2.DailyMax
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError){
+
+            }
+        })
     }
 }
 

@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Logout") { dialog, which ->
                 logout()
-                System.exit(0)
             }
             .setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss();
@@ -97,3 +96,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 }
+

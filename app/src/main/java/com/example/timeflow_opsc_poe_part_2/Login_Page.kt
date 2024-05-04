@@ -56,7 +56,7 @@ class Login_Page : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                     setCurrentUser()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

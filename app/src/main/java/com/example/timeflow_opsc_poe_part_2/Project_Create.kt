@@ -1,11 +1,11 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.os.Bundle
-import android.text.Selection.setSelection
-import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +19,7 @@ class Project_Create : AppCompatActivity() {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
     var priorities = arrayOf("High", "Low")
+    val currentUser = CurrentUser.userID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,23 +30,17 @@ class Project_Create : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val currentUser = CurrentUser.userID
         rootNode = FirebaseDatabase.getInstance()
 
         val spinnerID = findViewById<Spinner>(R.id.mySpinner)
         val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, priorities)
         spinnerID.adapter = arrayAdapt
-        val priority = false
+        var priority = false
 
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (priorities[p2] == "false"){
-                    priority == false
-                }
-                else{
-                    priority == true
-                }
-                Toast.makeText(this@Project_Create, "item selected: ${priorities[p2]}" ,Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(context, "item selected: ${durationChoice[p2]}" ,Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -53,7 +48,18 @@ class Project_Create : AppCompatActivity() {
             }
         }
 
+        val btnSave = findViewById<Button>(R.id.btnSaveprj)
+        val btnCancelprg = findViewById<Button>(R.id.btnCancelprg)
+        var name = findViewById<EditText>(R.id.txtProjects)
         projectReference = rootNode.getReference("projects/$currentUser")
+
+        btnSave.setOnClickListener{
+            writeProject(name.text.toString(), priority)
+            this.finish()
+        }
+        btnCancelprg.setOnClickListener{
+            this.finish()
+        }
     }
 
     fun writeProject(name: String, priority: Boolean) {
