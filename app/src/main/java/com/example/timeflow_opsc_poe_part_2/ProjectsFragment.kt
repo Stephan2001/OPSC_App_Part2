@@ -104,6 +104,4 @@ class ProjectsFragment : Fragment() {
         val context = context as MainActivity
         Toast.makeText(context, "Project removed", Toast.LENGTH_SHORT).show()
     }
-
-
 }
