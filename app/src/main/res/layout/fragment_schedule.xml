@@ -29,7 +29,7 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="325dp"
         android:layout_marginBottom="15dp"
-        android:background="@color/purple"
+        android:background="@drawable/buttons"
         android:text="+"
         android:textColor="@color/white"
         android:textSize="42dp" />

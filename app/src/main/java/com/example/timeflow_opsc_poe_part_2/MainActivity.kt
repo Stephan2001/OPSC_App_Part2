@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -12,10 +13,14 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,10 +50,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_projects -> replaceFragment(ProjectsFragment())
             R.id.nav_statistics -> replaceFragment(StatisticsFragment())
             R.id.nav_goals -> replaceFragment(GoalsFragment())
-            R.id.nav_logout -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+            R.id.nav_logout -> logoutDialog()//Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun logoutDialog(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@MainActivity)
+        builder
+
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Logout") { dialog, which ->
+                logout()
+                System.exit(0)
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss();
+            }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    fun logout(){
+        auth = Firebase.auth
+        auth.signOut()
+        CurrentUser.userID = ""
+        Toast.makeText(this, "Logout successful", Toast.LENGTH_SHORT).show()
     }
 
     private  fun  replaceFragment(fragment: Fragment){
@@ -68,4 +97,3 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 }
-
