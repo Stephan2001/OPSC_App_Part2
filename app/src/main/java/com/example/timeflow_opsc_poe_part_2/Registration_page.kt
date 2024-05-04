@@ -85,31 +85,6 @@ class Registration_page : AppCompatActivity() {
     }
 
     private fun successful() {
-        /*var message = "First name: " + binding.txtName.text
-        message += "\nLast name: " + binding.txtLastName.text
-        message += "\nEmail: " + binding.txtEmail.text
-        message += "\nPassword: " + binding.txtPassword.text
-        message += "\nConfirm password: " + binding.txtConfirmPassword.text
-
-
-        AlertDialog.Builder(this)
-            .setTitle("Successfully registered")
-            .setMessage(message)
-            .setPositiveButton("Okay"){_,_ ->
-                binding.txtName.text = null
-                binding.txtLastName.text = null
-                binding.txtEmail.text = null
-                binding.txtPassword.text = null
-                binding.txtConfirmPassword.text = null
-
-                binding.nameContainer.helperText = getString(R.string.Required)
-                binding.lastnameContainer.helperText = getString(R.string.Required)
-                binding.emailContainer.helperText = getString(R.string.Required)
-                binding.passwordContainer.helperText = getString(R.string.Required)
-                binding.confirmPasswordContainer.helperText = getString(R.string.Required)
-
-            }.show()*/
-
         val email: EditText = findViewById(R.id.txtEmail)
         val pass: EditText = findViewById(R.id.txtPassword)
         val firstName: EditText = findViewById(R.id.txtName)
@@ -213,7 +188,7 @@ class Registration_page : AppCompatActivity() {
         val txtPassword = binding.txtPassword.text.toString()
         if (txtPassword.length < 6)
         {
-            return "Must be 6 characters long"
+            return "Must be longer than 6 characters"
         }
         if (!txtPassword.matches(".*[A-Z].*".toRegex()))
         {
