@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:counterEnabled="true"
-        app:counterMaxLength="16"
+        app:counterMaxLength="20"
         app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
@@ -111,7 +111,7 @@
             android:layout_height="match_parent"
             android:hint="@string/Password"
             android:inputType="textPassword"
-            android:maxLength="16"
+            android:maxLength="20"
             android:lines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:counterEnabled="true"
-        app:counterMaxLength="16"
+        app:counterMaxLength="20"
         app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
@@ -138,7 +138,7 @@
             android:layout_height="match_parent"
             android:hint="@string/ConfirmPassword"
             android:inputType="textPassword"
-            android:maxLength="16"
+            android:maxLength="20"
             android:lines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
