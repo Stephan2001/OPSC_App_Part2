@@ -4,6 +4,8 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.activity.enableEdgeToEdge
@@ -66,6 +68,12 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
                 calender.get(Calendar.MINUTE),
                 false
             ).show()
+        }
+
+        var btnSaveTimeDaily = findViewById<Button>(R.id.btnSaveTimeDaily)
+        var txtMinDailyTime = findViewById<EditText>(R.id.txtMinDailyTime)
+        btnSaveTimeDaily.setOnClickListener{
+
         }
     }
 

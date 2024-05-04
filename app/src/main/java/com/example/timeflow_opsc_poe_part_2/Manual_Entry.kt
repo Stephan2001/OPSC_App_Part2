@@ -187,7 +187,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private fun displayFormatDate(timestamp: Long) {
         findViewById<TextView>(R.id.txtSetDate).text = formatter.format(timestamp)
-        Log.i("Formatting", timestamp.toString())
+        Log.i("Formatting", formatter.format(timestamp))
     }
 
 }
