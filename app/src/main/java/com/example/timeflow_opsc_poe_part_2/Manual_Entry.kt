@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,11 +71,21 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         rootNode = FirebaseDatabase.getInstance()
         var projectsList:ArrayList<String> = populateProjects()
 
-        // populating projects list
-        populateProjects()
+        //dropdown stuff
+        val spinnerID = findViewById<Spinner>(R.id.mySpinnerprgEntries)
+        val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, projectsList)
+        spinnerID.adapter = arrayAdapt
+        Log.d("theError", "made before listener")
+        spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                currentProject = projectsList[p2]
+                Toast.makeText(this@Manual_Entry, "item selected: ${ projectsList[p2]}" , Toast.LENGTH_SHORT).show()
+            }
 
-        // populate dropdownList
-        populateDropdown(projectsList)
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(this@Manual_Entry, "item selected: Nothing" , Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // adding photo to imageview
         btnAddphoto.setOnClickListener{
@@ -163,22 +174,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
-        }
-    }
-
-    fun populateDropdown(projectsList:ArrayList<String>){
-        val spinnerID = findViewById<Spinner>(R.id.mySpinnerProjects)
-        val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, projectsList)
-        spinnerID.adapter = arrayAdapt
-        spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                currentProject = projectsList[p2]
-                spinnerID.setSelection(p2)
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
         }
     }
 

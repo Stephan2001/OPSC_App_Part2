@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/mySpinnerProjects"
+        android:id="@+id/mySpinnerprgEntries"
         android:layout_width="353dp"
         android:layout_height="46dp"
         android:layout_marginTop="124dp"
