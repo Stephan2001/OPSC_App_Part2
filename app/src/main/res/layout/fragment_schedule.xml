@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,57 +8,74 @@
     tools:context=".ScheduleFragment">
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="180dp"
         android:layout_height="48dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Time entries"
         android:textColor="@color/purple"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Recycler"
-        android:layout_width="355dp"
-        android:layout_height="466dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="160dp" />
+        android:layout_width="349dp"
+        android:layout_height="394dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSelectedDate" />
 
     <Button
         android:id="@+id/btnAddEntry"
         android:layout_width="75dp"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
-        android:layout_marginStart="325dp"
-        android:layout_marginBottom="15dp"
         android:background="@drawable/buttons"
         android:text="+"
         android:textColor="@color/white"
-        android:textSize="42dp" />
+        android:textSize="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Recycler"
+        app:layout_constraintVertical_bias="0.741" />
 
     <ImageButton
         android:id="@+id/btnSelectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginStart="325dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/schedule" />
+        android:layout_marginTop="16dp"
+        android:src="@drawable/schedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtSelectedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:text="TextView" />
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblCurrentDate" />
 
     <TextView
         android:id="@+id/lblCurrentDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="75dp"
-        android:text="Selected Date" />
+        android:layout_marginTop="16dp"
+        android:text="Selected Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
