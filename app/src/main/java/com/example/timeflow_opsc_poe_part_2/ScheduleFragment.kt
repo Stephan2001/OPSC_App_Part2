@@ -92,7 +92,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         updateDisplay()
         // database
         rootNode = FirebaseDatabase.getInstance()
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser")
+
         // reading data
 
     }
