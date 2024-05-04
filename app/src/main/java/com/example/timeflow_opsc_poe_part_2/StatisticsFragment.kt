@@ -42,7 +42,7 @@ class StatisticsFragment : Fragment() {
         rootNode = FirebaseDatabase.getInstance()
         val context = context as MainActivity
 
-        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerTotalTime)
+        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerprgStats)
         val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, durationChoice)
         spinnerID.adapter = arrayAdapt
         val priority = false
@@ -70,7 +70,7 @@ class StatisticsFragment : Fragment() {
 
 
     fun populateDropdown(projectsList:ArrayList<String>, context: Context){
-        val spinnerID = view?.findViewById<Spinner>(R.id.mySpinnerprgEntries)
+        val spinnerID = view?.findViewById<Spinner>(R.id.mySpinnerprgStats)
         val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, projectsList)
         spinnerID?.adapter = arrayAdapt
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -104,7 +104,7 @@ class StatisticsFragment : Fragment() {
         rootNode = FirebaseDatabase.getInstance()
         val context = context as MainActivity
 
-        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerprgEntries)
+        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerprgStats)
         val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, projectsList)
         spinnerID.adapter = arrayAdapt
         val projects = false

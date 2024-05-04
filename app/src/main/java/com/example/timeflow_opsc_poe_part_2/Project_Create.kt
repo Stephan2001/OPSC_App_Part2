@@ -39,8 +39,13 @@ class Project_Create : AppCompatActivity() {
 
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-                Toast.makeText(context, "item selected: ${durationChoice[p2]}" ,Toast.LENGTH_SHORT).show()
+                if (priorities[p2] == "false"){
+                    priority = false
+                }
+                else{
+                    priority = true
+                }
+                Toast.makeText(this@Project_Create, "item selected: ${priorities[p2]}" ,Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
