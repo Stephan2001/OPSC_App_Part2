@@ -43,7 +43,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
     private  lateinit var storage:FirebaseStorage
-    private var arrayAdapter:ArrayAdapter<String>?=null
     var currentProject = ""
     val currentUser = CurrentUser.userID
     var photoRefernece = ""

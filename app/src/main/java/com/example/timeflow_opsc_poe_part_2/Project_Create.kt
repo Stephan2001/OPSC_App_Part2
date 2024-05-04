@@ -18,8 +18,9 @@ import com.google.firebase.database.FirebaseDatabase
 class Project_Create : AppCompatActivity() {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
-    var priorities = arrayOf("High", "Low")
+    var priorities = ArrayList<String>()
     val currentUser = CurrentUser.userID
+    var priority = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +32,16 @@ class Project_Create : AppCompatActivity() {
             insets
         }
         rootNode = FirebaseDatabase.getInstance()
-
+        priorities.clear()
+        priorities.add("High")
+        priorities.add("Low")
         val spinnerID = findViewById<Spinner>(R.id.mySpinner)
         val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, priorities)
         spinnerID.adapter = arrayAdapt
-        var priority = false
 
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (priorities[p2] == "false"){
+                if (priorities[p2] == "Low"){
                     priority = false
                 }
                 else{

@@ -94,7 +94,11 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         rootNode = FirebaseDatabase.getInstance()
 
         // reading data
+        var date = selectedDate.text.toString()
+        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date")
+        for (project in UserProjects.projectsList) {
 
+        }
     }
 
     /*fun readFromDatabase(){
