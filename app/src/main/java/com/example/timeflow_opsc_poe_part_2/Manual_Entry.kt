@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +16,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,7 +29,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -84,14 +81,16 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             imageContract.launch("image/*")
         }
 
-
-        val btnSave = findViewById<Button>(R.id.btnSave)
+        var date = findViewById<TextView>(R.id.txtSetDate)
+        var startingTime = findViewById<TextView>(R.id.txtStaringTime)
+        var endingTime = findViewById<TextView>(R.id.txtEndingTime)
+        val btnSave = findViewById<Button>(R.id.btnSaveprj)
         btnSave.setOnClickListener{
-            writeTimeEntry("Today", "Food", "1500", "1600")
+            writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
             upLoadImage(uploadToBytes())
         }
 
-        findViewById<TextView>(R.id.txtSetDate).setOnClickListener {
+        date.setOnClickListener {
             DatePickerDialog(
                 this,
                 object : DatePickerDialog.OnDateSetListener {
@@ -106,7 +105,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             ).show()
         }
 
-        findViewById<TextView>(R.id.txtStaringTime).setOnClickListener {
+        startingTime.setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
             TimePickerDialog(
                 this,
@@ -125,7 +124,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             ).show()
         }
 
-        findViewById<TextView>(R.id.txtEndingTime).setOnClickListener {
+        endingTime.setOnClickListener {
             displayFormattedTime2(calender.timeInMillis)
             TimePickerDialog(
                 this,

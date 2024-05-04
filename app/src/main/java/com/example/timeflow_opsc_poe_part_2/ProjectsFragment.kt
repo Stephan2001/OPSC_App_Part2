@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -73,13 +74,29 @@ class ProjectsFragment : Fragment() {
         listView.setOnItemClickListener { parent, view, position, id ->
             val element = parent.getItemAtPosition(position)
             var id = element.toString().trim()
-            Toast.makeText(context, IDList[position], Toast.LENGTH_SHORT,).show()
+            deleteProject(id)
         }
 
         btnCreateProject.setOnClickListener{
             val intent = Intent(context, Project_Create::class.java)
             startActivity(intent)
         }
+    }
+
+    fun deleteProject(id:String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder
+
+            .setTitle("Delete the Project?")
+            .setPositiveButton("Delete") { dialog, which ->
+                // Do something.
+            }
+            .setNegativeButton("Cancel") { dialog, which ->
+                // Do something else.
+            }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
 }

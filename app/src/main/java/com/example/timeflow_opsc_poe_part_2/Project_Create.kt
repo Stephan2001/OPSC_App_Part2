@@ -1,11 +1,11 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.os.Bundle
-import android.text.Selection.setSelection
-import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -53,7 +53,18 @@ class Project_Create : AppCompatActivity() {
             }
         }
 
+        val btnSave = findViewById<Button>(R.id.btnSaveprj)
+        val btnCancelprg = findViewById<Button>(R.id.btnCancelprg)
+        var name = findViewById<EditText>(R.id.txtProjects)
         projectReference = rootNode.getReference("projects/$currentUser")
+
+        btnSave.setOnClickListener{
+            writeProject(name.text.toString(), priority)
+            this.finish()
+        }
+        btnCancelprg.setOnClickListener{
+            this.finish()
+        }
     }
 
     fun writeProject(name: String, priority: Boolean) {
