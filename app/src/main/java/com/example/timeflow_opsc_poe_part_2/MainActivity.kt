@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var auth: FirebaseAuth
     private  lateinit var projectReference : DatabaseReference
     private  lateinit var rootNode : FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Logout") { dialog, which ->
                 logout()
+                System.exit(0)
             }
             .setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss();
