@@ -1,13 +1,14 @@
 package com.example.timeflow_opsc_poe_part_2
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,9 +17,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class StatisticsFragment : Fragment() {
-    private  lateinit var listView : ListView
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
+    var durationChoice = arrayOf("This week", "This month", "This year")
+    val currentUser = CurrentUser.userID
+    var currentProject = ""
+    var projectsList = ArrayList<String>()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,45 +32,97 @@ class StatisticsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_statistics, container, false)
+
+
     }
 
+    //to populate duration dropdown list
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val currentUser = CurrentUser.userID
-        listView = view.findViewById<ListView>(R.id.lvProjects)
         rootNode = FirebaseDatabase.getInstance()
+        val context = context as MainActivity
+
+        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerTotalTime)
+        val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, durationChoice)
+        spinnerID.adapter = arrayAdapt
+        val priority = false
+
+        spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (durationChoice[p2] == "false"){
+                    priority == false
+                }
+                else{
+                    priority == true
+                }
+                Toast.makeText(context, "item selected: ${durationChoice[p2]}" ,Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(context, "item selected: Nothing" ,Toast.LENGTH_SHORT).show()
+            }
+        }
+
         projectReference = rootNode.getReference("projects/$currentUser")
 
-        // setting up the list view
-        val context = context as MainActivity
-        val list = ArrayList<String>()
-        val IDList = ArrayList<String>()
+    }
 
-        val lv = context.findViewById(R.id.lvProjects) as ListView
-        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, list)
-        lv.adapter = adapter
 
-        // reading from dastabase
+
+    fun populateDropdown(projectsList:ArrayList<String>, context: Context){
+        val spinnerID = view?.findViewById<Spinner>(R.id.mySpinnerProjects)
+        val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, projectsList)
+        spinnerID?.adapter = arrayAdapt
+        spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                currentProject = projectsList[p2]
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+    }
+
+    fun populateProjects():ArrayList<String> {
+        projectReference = rootNode.getReference("projects/$currentUser")
         projectReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                IDList.clear()
                 for (snapshot1 in snapshot.children) {
                     val dc2 = snapshot1.getValue(Project::class.java)
-                    val txt = " ${dc2?.name}"
-                    IDList.add(snapshot1.key.toString())
-                    txt?.let { list.add(it) }
+                    if (dc2 != null) {
+                        projectsList.add(dc2.name)
+                    }
                 }
-                adapter.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError) {
             }
         })
+        return projectsList
+    }
 
-        listView.setOnItemClickListener { parent, view, position, id ->
-            val element = parent.getItemAtPosition(position)
-            var id = element.toString().trim()
-            Toast.makeText(context, IDList[position], Toast.LENGTH_SHORT,).show()
+    //to populate projects dropdown list
+    fun onCreate(view: View, savedInstanceState: Bundle?) {
+        rootNode = FirebaseDatabase.getInstance()
+        val context = context as MainActivity
+
+        val spinnerID = view.findViewById<Spinner>(R.id.mySpinnerProjects)
+        val arrayAdapt = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, projectsList)
+        spinnerID.adapter = arrayAdapt
+        val projects = false
+
+        spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (projectsList[p2] == "false"){
+                    projects == false
+                }
+                else{
+                    projects == true
+                }
+                Toast.makeText(context, "item selected: ${projectsList[p2]}" ,Toast.LENGTH_SHORT).show()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(context, "item selected: Nothing" ,Toast.LENGTH_SHORT).show()
+            }
         }
+        projectReference = rootNode.getReference("projects/$currentUser")
     }
 }
