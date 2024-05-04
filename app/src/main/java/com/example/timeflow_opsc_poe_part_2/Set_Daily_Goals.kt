@@ -12,8 +12,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -82,7 +85,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
-
+                writegoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString())
             }
         }
     }
@@ -108,13 +111,32 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         Log.i("Formatting", timestamp.toString())
     }
 
-    fun writegoals(name: String, priority: Boolean) {
+    fun writegoals(min:String, max: String) {
         var myRef = goalsReference.push()
         var key = myRef.key
-        val project = Project( name, priority)
+        val dailyGoals = DailyGoals(min, max)
         if (key != null) {
-            goalsReference.child(key).setValue(project)
+            goalsReference.child(key).setValue(dailyGoals)
         }
+    }
+
+    fun retrieveGoals(){
+        goalsReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                list.clear()
+                counter = 0
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(DailyGoals::class.java)
+                    val txt = " ${dc2?.id}      Name is ${dc2?.nane} , favourite food: ${dc2?.description}"
+                    txt?.let {list.add(it)}
+                    counter = dc2?.id
+                }
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(error: DatabaseError){
+
+            }
+        })
     }
 }
 
