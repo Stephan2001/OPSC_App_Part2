@@ -20,23 +20,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/lvProjects"
+    <Spinner
+        android:id="@+id/mySpinnerProjects"
         android:layout_width="378dp"
-        android:layout_height="254dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Spinner
-        android:id="@+id/mySpinner"
+        android:id="@+id/mySpinnerTotalTime"
         android:layout_width="378dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvProjects" />
+        app:layout_constraintTop_toBottomOf="@+id/mySpinnerProjects" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

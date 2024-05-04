@@ -73,6 +73,11 @@ class Registration_page : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("auth", "createUserWithEmail:success")
                     val user = auth.currentUser
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication successful.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 } else {
                     Log.w("auth", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
