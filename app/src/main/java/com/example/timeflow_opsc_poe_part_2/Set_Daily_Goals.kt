@@ -41,7 +41,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         }
         rootNode = FirebaseDatabase.getInstance()
         goalsReference = rootNode.getReference("goals/$currentUser")
-
+        retrieveGoals()
         findViewById<TextView>(R.id.txtMinDailyTime).setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
             TimePickerDialog(
@@ -112,26 +112,22 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
     }
 
     fun writegoals(min:String, max: String) {
-        var myRef = goalsReference.push()
-        var key = myRef.key
         val dailyGoals = DailyGoals(min, max)
-        if (key != null) {
-            goalsReference.child(key).setValue(dailyGoals)
-        }
+        goalsReference.setValue(dailyGoals)
     }
 
     fun retrieveGoals(){
         goalsReference.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
-                list.clear()
-                counter = 0
                 for(snapshot1 in snapshot.children){
                     val dc2 = snapshot1.getValue(DailyGoals::class.java)
-                    val txt = " ${dc2?.id}      Name is ${dc2?.nane} , favourite food: ${dc2?.description}"
-                    txt?.let {list.add(it)}
-                    counter = dc2?.id
+                    var txtMinDailyTime = findViewById<TextView>(R.id.txtMinDailyTime)
+                    var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
+                    if (dc2 != null) {
+                        txtMinDailyTime.text = dc2.DailyMin
+                        txtMaxDailyTime.text = dc2.DailyMax
+                    }
                 }
-                adapter.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError){
 
