@@ -1,6 +1,7 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -15,6 +16,7 @@ import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultCallback
@@ -37,7 +39,7 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
@@ -54,6 +56,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
+    private val formatter2 = SimpleDateFormat("hh:mm a", Locale.UK)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,11 +99,48 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         calender.set(year, month, dayOfMonth)
                         displayFormatDate(calender.timeInMillis)
                     }
-
                 },
                 calender.get(Calendar.YEAR),
                 calender.get(Calendar.MONTH),
                 calender.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+        findViewById<TextView>(R.id.txtStaringTime).setOnClickListener {
+            displayFormattedTime1(calender.timeInMillis)
+            TimePickerDialog(
+                this,
+                object : TimePickerDialog.OnTimeSetListener {
+                    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                        calender.apply {
+                            set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            set(Calendar.MINUTE, minute)
+                        }
+                        displayFormattedTime1(calender.timeInMillis)
+                    }
+                },
+                calender.get(Calendar.HOUR_OF_DAY),
+                calender.get(Calendar.MINUTE),
+                false
+            ).show()
+        }
+
+        findViewById<TextView>(R.id.txtEndingTime).setOnClickListener {
+            displayFormattedTime2(calender.timeInMillis)
+            TimePickerDialog(
+                this,
+                object : TimePickerDialog.OnTimeSetListener {
+                    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                        calender.apply {
+                            set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            set(Calendar.MINUTE, minute)
+                        }
+                        displayFormattedTime2(calender.timeInMillis)
+                    }
+                },
+                calender.get(Calendar.HOUR_OF_DAY),
+                calender.get(Calendar.MINUTE),
+                false
             ).show()
         }
     }
@@ -185,8 +225,27 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     }
 
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        calender.apply {
+            set(Calendar.HOUR_OF_DAY, hourOfDay)
+            set(Calendar.MINUTE, minute)
+        }
+        displayFormattedTime1(calender.timeInMillis)
+    }
+
+
     private fun displayFormatDate(timestamp: Long) {
         findViewById<TextView>(R.id.txtSetDate).text = formatter.format(timestamp)
+        Log.i("Formatting", timestamp.toString())
+    }
+
+    fun displayFormattedTime1(timestamp: Long) {
+        findViewById<TextView>(R.id.txtStaringTime).text = formatter2.format(timestamp)
+        Log.i("Formatting", timestamp.toString())
+    }
+
+    fun displayFormattedTime2(timestamp: Long) {
+        findViewById<TextView>(R.id.txtEndingTime).text = formatter2.format(timestamp)
         Log.i("Formatting", timestamp.toString())
     }
 
