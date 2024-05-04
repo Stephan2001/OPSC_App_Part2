@@ -49,9 +49,16 @@
         android:id="@+id/txtSelectedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
-        />
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/lblCurrentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="75dp"
+        android:text="Selected Date" />
 
 </FrameLayout>

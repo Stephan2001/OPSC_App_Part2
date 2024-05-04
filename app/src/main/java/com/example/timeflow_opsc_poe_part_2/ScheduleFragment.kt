@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
@@ -46,6 +48,8 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         // prior values
         val context = context as MainActivity
+        var selectedDate = view.findViewById<TextView>(R.id.txtSelectedDate)
+        selectedDate.text = formatter.format(Date())
 
         var btnchangeDate = view.findViewById<ImageButton>(R.id.btnSelectDate)
         btnchangeDate.setOnClickListener {
@@ -97,7 +101,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun displayFormatDate(timestamp: Long) {
-        var selectedDate = view?.findViewById<TextView>(R.id.btnSelectDate)
+        var selectedDate = view?.findViewById<TextView>(R.id.txtSelectedDate)
         if (selectedDate != null) {
             selectedDate.text = formatter.format(timestamp)
         }
