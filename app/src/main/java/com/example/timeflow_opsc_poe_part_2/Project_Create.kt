@@ -19,6 +19,7 @@ class Project_Create : AppCompatActivity() {
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var projectReference : DatabaseReference
     var priorities = arrayOf("High", "Low")
+    val currentUser = CurrentUser.userID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,6 @@ class Project_Create : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val currentUser = CurrentUser.userID
         rootNode = FirebaseDatabase.getInstance()
 
         val spinnerID = findViewById<Spinner>(R.id.mySpinner)
