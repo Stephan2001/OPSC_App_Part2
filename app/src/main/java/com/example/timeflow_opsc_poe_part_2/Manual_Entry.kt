@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.timeflow_opsc_poe_part_2.UserProjects.projectsList
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,8 +42,8 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
-    private  lateinit var projectReference : DatabaseReference
     private  lateinit var storage:FirebaseStorage
+    private var arrayAdapter:ArrayAdapter<String>?=null
     var currentProject = ""
     val currentUser = CurrentUser.userID
     var photoRefernece = ""
@@ -65,25 +66,23 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         // prior values
         val btnAddphoto = findViewById<Button>(R.id.btnAddPhoto)
         imageView = findViewById(R.id.imgTimesheet)
         rootNode = FirebaseDatabase.getInstance()
-        var projectsList:ArrayList<String> = populateProjects()
 
         //dropdown stuff
         val spinnerID = findViewById<Spinner>(R.id.mySpinnerprgEntries)
         val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, projectsList)
         spinnerID.adapter = arrayAdapt
-        Log.d("theError", "made before listener")
+
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 currentProject = projectsList[p2]
-                Toast.makeText(this@Manual_Entry, "item selected: ${ projectsList[p2]}" , Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                Toast.makeText(this@Manual_Entry, "item selected: Nothing" , Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -92,14 +91,9 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             imageContract.launch("image/*")
         }
 
+        // storing details to database
+        // setting date
         var date = findViewById<TextView>(R.id.txtSetDate)
-        var startingTime = findViewById<TextView>(R.id.txtStaringTime)
-        var endingTime = findViewById<TextView>(R.id.txtEndingTime)
-        val btnSave = findViewById<Button>(R.id.btnSaveprj)
-        btnSave.setOnClickListener{
-            writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
-            upLoadImage(uploadToBytes())
-        }
 
         date.setOnClickListener {
             DatePickerDialog(
@@ -115,6 +109,9 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
                 calender.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
+        // setting starting time
+        var startingTime = findViewById<TextView>(R.id.txtStaringTime)
 
         startingTime.setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
@@ -135,6 +132,9 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             ).show()
         }
 
+        // setting ending time
+        var endingTime = findViewById<TextView>(R.id.txtEndingTime)
+
         endingTime.setOnClickListener {
             displayFormattedTime2(calender.timeInMillis)
             TimePickerDialog(
@@ -153,7 +153,17 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
                 false
             ).show()
         }
+
+
+        val btnSave = findViewById<Button>(R.id.btnSaveprj)
+        btnSave.setOnClickListener{
+            writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
+            upLoadImage(uploadToBytes())
+            this.finish()
+        }
+
     }
+
 
     fun uploadToBytes(): ByteArray{
         val bitmap = (imageView.getDrawable() as BitmapDrawable).bitmap
@@ -175,25 +185,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
         }
-    }
-
-    fun populateProjects():ArrayList<String>{
-        var projectsList = ArrayList<String>()
-        projectReference = rootNode.getReference("projects/$currentUser")
-        projectReference.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot){
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(Project::class.java)
-                    if (dc2 != null) {
-                        projectsList.add(dc2.name)
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError){
-
-            }
-        })
-        return projectsList
     }
 
     // this method is used to reconvert to bitarray for imageview

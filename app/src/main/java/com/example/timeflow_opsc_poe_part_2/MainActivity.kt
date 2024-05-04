@@ -16,14 +16,39 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var auth: FirebaseAuth
+    private  lateinit var projectReference : DatabaseReference
+    private  lateinit var rootNode : FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        rootNode = FirebaseDatabase.getInstance()
+        projectReference = rootNode.getReference("projects/${CurrentUser.userID}")
+        projectReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                UserProjects.projectsList.clear()
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(Project::class.java)
+                    if (dc2 != null) {
+                        UserProjects.projectsList.add(dc2.name)
+                        Log.w("errrrr", dc2.name)
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError){
+
+            }
+        })
 
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
@@ -55,6 +80,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
 
     fun logoutDialog(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this@MainActivity)

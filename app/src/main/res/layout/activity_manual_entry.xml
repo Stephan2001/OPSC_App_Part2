@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/label"
-        android:layout_width="229dp"
-        android:layout_height="49dp"
+        android:layout_width="298dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:text="@string/label2"
         android:textColor="@color/purple"
@@ -95,8 +95,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="88dp"
-        android:layout_height="19dp"
+        android:layout_width="121dp"
+        android:layout_height="24dp"
         android:layout_marginTop="200dp"
         android:text="Choose photo"
         app:layout_constraintEnd_toEndOf="parent"
