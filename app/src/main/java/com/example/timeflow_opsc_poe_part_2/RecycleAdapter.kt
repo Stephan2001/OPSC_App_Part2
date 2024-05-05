@@ -1,5 +1,6 @@
 package com.example.timeflow_opsc_poe_part_2
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
 class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if(viewType== Constants.PARENT){
             val rowView: View = LayoutInflater.from(parent.context).inflate(R.layout.parent_row, parent,false)
@@ -45,6 +51,7 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
             }
         }
     }
+
     private fun expandOrCollapseParentItem(singleBoarding: ParentData,position: Int) {
         if (singleBoarding.isExpanded) {
             collapseParentRow(position)

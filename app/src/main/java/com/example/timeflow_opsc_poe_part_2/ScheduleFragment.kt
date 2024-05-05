@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.set
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +42,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
-    var currentDate = formatter.format(Date())
+    var currentDate = SelectedDate.date
     val listData : MutableList<ParentData> = ArrayList()
     var parentData = ArrayList<String>()
     override fun onCreateView(
@@ -97,18 +98,18 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         val btnRefresh = view.findViewById<ImageButton>(R.id.btnRefresh)
         btnRefresh.setOnClickListener {
-            currentDate = view?.findViewById<TextView>(R.id.txtSelectedDate)!!.text.toString()
-            listData.clear()
-            parentData.clear()
-            readData(object : FirebaseCallback {
-                override fun onCallback(prjList: ArrayList<String>) {
-                    Log.w("needhelp", prjList.toString())
-                    UserProjects.projectsList.clear()
-                    UserProjects.projectsList = prjList
-                    retrieveTimesheets()
-                    updateDisplay()
+            context?.let {
+                val fragmentManager = (context as? AppCompatActivity)?.supportFragmentManager
+                fragmentManager?.let {
+                    val currentFragment = fragmentManager.findFragmentById(R.id.fragment_container)
+                    currentFragment?.let {
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.detach(it)
+                        fragmentTransaction.attach(it)
+                        fragmentTransaction.commit()
+                    }
                 }
-            })
+            }
         }
     }
 
@@ -145,6 +146,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         if (selectedDate != null) {
             selectedDate.text = formatter.format(timestamp)
             currentDate = formatter.format(timestamp)
+            SelectedDate.date = formatter.format(timestamp)
         }
     }
 
