@@ -34,29 +34,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label2" />
 
-    <TextView
-        android:id="@+id/lblCurrentGoals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current goal"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="248dp" />
-
-    <TextView
-        android:id="@+id/currentMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="289dp" />
-
-    <TextView
-        android:id="@+id/currentMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="202dp"
-        tools:layout_editor_absoluteY="289dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
