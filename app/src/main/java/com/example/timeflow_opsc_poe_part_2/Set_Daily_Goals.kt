@@ -111,4 +111,3 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
 }
 
 
-
