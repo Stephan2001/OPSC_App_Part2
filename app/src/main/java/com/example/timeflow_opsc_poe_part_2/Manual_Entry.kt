@@ -199,11 +199,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         }
     }
 
-    // this method is used to reconvert to bitarray for imageview
-    fun byteArrayToBitmap(data: ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(data, 0, data.size)
-    }
-
     fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String) {
         timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date")
         var myRef = timeEntriesReference.push()

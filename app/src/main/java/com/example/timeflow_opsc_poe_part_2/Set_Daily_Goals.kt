@@ -39,9 +39,10 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // prior values
         rootNode = FirebaseDatabase.getInstance()
         goalsReference = rootNode.getReference("goals/$currentUser")
-        retrieveGoals()
+
         findViewById<TextView>(R.id.txtMinDailyTime).setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
             TimePickerDialog(
@@ -86,6 +87,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
                 writegoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString())
+                this.finish()
             }
         }
     }
@@ -111,28 +113,10 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
     }
 
     fun writegoals(min:String, max: String) {
-        val dailyGoals = DailyGoals(min, max)
+        var dailyGoals = DailyGoals(min, max)
         goalsReference.setValue(dailyGoals)
     }
 
-    fun retrieveGoals(){
-        goalsReference.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot){
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(DailyGoals::class.java)
-                    var txtMinDailyTime = findViewById<TextView>(R.id.txtMinDailyTime)
-                    var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
-                    if (dc2 != null) {
-                        txtMinDailyTime.text = dc2.DailyMin
-                        txtMaxDailyTime.text = dc2.DailyMax
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError){
-
-            }
-        })
-    }
 }
 
 

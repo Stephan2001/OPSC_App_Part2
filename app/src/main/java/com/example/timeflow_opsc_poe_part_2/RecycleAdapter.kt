@@ -47,7 +47,6 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
                 if (singleService.bitmap !=null){
                     childIMG?.setImageBitmap(singleService.bitmap)
                 }
-                childTT?.text = singleService.duration
                 childEdit.setOnClickListener {
                     Log.d("btnPlsWork", "success")
                 }
@@ -106,7 +105,6 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
     }
     class ChildViewHolder(row: View) : RecyclerView.ViewHolder(row) {
         val childTV = row.findViewById(R.id.child_time) as TextView?
-        val childTT = row.findViewById(R.id.child_duration) as TextView?
         val childIMG = row.findViewById(R.id.imgDisplayTimesheet) as ImageView?
         val childEdit = row.findViewById(R.id.btnEditItem) as ImageButton
     }
