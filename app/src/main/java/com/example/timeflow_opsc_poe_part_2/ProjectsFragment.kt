@@ -102,6 +102,6 @@ class ProjectsFragment : Fragment() {
     fun deleteProject(id:String){
         projectReference.child(id).removeValue()
         val context = context as MainActivity
-        Toast.makeText(context, "Project removed", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Project deleted", Toast.LENGTH_SHORT).show()
     }
 }
