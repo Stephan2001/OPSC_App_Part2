@@ -242,8 +242,4 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         Log.i("Formatting", timestamp.toString())
     }
 
-    fun validateInputs(){
-
-    }
-
 }

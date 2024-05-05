@@ -28,26 +28,10 @@ class GoalsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val context = context as MainActivity
 
-        var rootNode = FirebaseDatabase.getInstance()
-        var goalsReference = rootNode.getReference("goals/${CurrentUser.userID}")
-
         val setDailyGoal = view.findViewById<Button>(R.id.btnDailyGoal)
         setDailyGoal.setOnClickListener {
             val intent = Intent(context, Set_Daily_Goals::class.java)
             startActivity(intent)
         }
-
-        goalsReference.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot){
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(DailyGoals::class.java)
-
-                }
-            }
-            override fun onCancelled(error: DatabaseError){
-
-            }
-        })
-
     }
 }

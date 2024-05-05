@@ -97,6 +97,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         val btnRefresh = view.findViewById<ImageButton>(R.id.btnRefresh)
         btnRefresh.setOnClickListener {
+            currentDate = view?.findViewById<TextView>(R.id.txtSelectedDate)!!.text.toString()
             listData.clear()
             parentData.clear()
             readData(object : FirebaseCallback {
@@ -123,7 +124,6 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     updateDisplay()
                 }
             })
-
         }
     }
 
