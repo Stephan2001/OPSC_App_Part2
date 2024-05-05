@@ -86,7 +86,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
-                writegoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString())
+                goalsReference.setValue(DailyGoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString()))
                 this.finish()
             }
         }
