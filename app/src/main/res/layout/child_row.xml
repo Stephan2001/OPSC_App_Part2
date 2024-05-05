@@ -19,6 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.545" />
 
+    <TextView
+        android:id="@+id/child_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintStart_toEndOf="@+id/imgDisplayTimesheet"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545" />
+
     <ImageView
         android:id="@+id/imgDisplayTimesheet"
         android:layout_width="35dp"

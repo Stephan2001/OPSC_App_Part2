@@ -36,8 +36,16 @@ class GoalsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_goals, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val setDailyGoal = view.findViewById<Button>(R.id.btnDailyGoal)
+        setDailyGoal.setOnClickListener {
+            val intent = Intent(context, Set_Daily_Goals::class.java)
+            startActivity(intent)
+        }
 
         val currentUser = CurrentUser.userID
         val btnDailyGoal = view.findViewById<TextView>(R.id.btnDailyGoal)

@@ -29,22 +29,22 @@ import java.util.Date
 import java.util.Locale
 
 class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
-    val listData : MutableList<ParentData> = ArrayList()
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var timeEntriesReference : DatabaseReference
     val currentUser = CurrentUser.userID
     private  lateinit var projectReference : DatabaseReference
-    var parentData = ArrayList<String>()
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
     var currentDate = formatter.format(Date())
+    val listData : MutableList<ParentData> = ArrayList()
+    var parentData = ArrayList<String>()
+    var childDataData = ArrayList<ChildData>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_schedule, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,10 +53,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         btnAddEntry.setOnClickListener {
             val intent = Intent(context, Select_Option::class.java)
             startActivity(intent)
-            Display()
-            updateDisplay()
         }
-
         // prior values
         rootNode = FirebaseDatabase.getInstance()
         val context = context as MainActivity
@@ -65,8 +62,14 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         var btnchangeDate = view.findViewById<ImageButton>(R.id.btnSelectDate)
         btnchangeDate.setOnClickListener {
-            retrieveProjects()
-            Log.w("errprg", parentData.toString())
+
+            // read projects
+            readData(object : FirebaseCallback {
+                override fun onCallback(prjList: ArrayList<String>) {
+                    Log.w("thisthedate", prjList.toString())
+                }
+            })
+
             DatePickerDialog(
                 context,
                 object : DatePickerDialog.OnDateSetListener {
@@ -87,54 +90,40 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
     }
-    fun retrieveProjects(){
-        projectReference = rootNode.getReference("projects/${CurrentUser.userID}")
-        projectReference.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot){
-                parentData.clear()
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(Project::class.java)
-                    if (dc2 != null && dc2.highPriority) {
-                        parentData.add(dc2.name)
-                        Log.w("errprg", dc2.name)
-                    }
-                }
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(Project::class.java)
-                    if (dc2 != null && !dc2.highPriority) {
-                        parentData.add(dc2.name)
-                        Log.w("errprg", dc2.name)
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError){
-
-            }
-        })
-    }
 
 
     fun retrieveTimesheets(){
         Log.w("thisthedate", currentDate)
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$currentDate")
-        listData.clear()// clear list before adding new data
+        childDataData.clear()
         for (project in UserProjects.projectsList) {
+            timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$currentDate/$project")
+            timeEntriesReference.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot){
+                    for(snapshot1 in snapshot.children){
+                        val dc2 = snapshot1.getValue(TimesheetEntry::class.java)
 
+                        childDataData.add(ChildData("${dc2!!.startTime} - ${dc2!!.endTime}", null))
+                    }
+                    Log.w("thisthedate", childDataData.toString())
+                }
+                override fun onCancelled(error: DatabaseError){
+                }
+            })
         }
     }
 
 
     fun Display(){
-        val childDataData1: MutableList<ChildData> = mutableListOf(ChildData("Anathapur", null),ChildData("Chittoor", null))
+        //val childDataData1: MutableList<ChildData> = mutableListOf(ChildData("Anathapur", null),ChildData("Chittoor", null))
         //val childDataData2: MutableList<ChildData> = mutableListOf(ChildData("Rajanna Sircilla", null), ChildData("Karimnagar", null))
         //val childDataData3: MutableList<ChildData> = mutableListOf(ChildData("Chennai", null), ChildData("Erode", null))
 
-        val parentObj1 = ParentData(parentTitle = parentData[0], subList = childDataData1)
+        //val parentObj1 = ParentData(parentTitle = parentData[0], subList = childDataData1)
         //val parentObj2 = ParentData(parentTitle = parentData[1], subList = childDataData2)
         //val parentObj3 = ParentData(parentTitle = parentData[2])
         //val parentObj4 = ParentData(parentTitle = parentData[1], subList = childDataData3)
 
-        listData.add(parentObj1)
+        //listData.add(parentObj1)
         //listData.add(parentObj2)
         //listData.add(parentObj3)
         //listData.add(parentObj4)
@@ -164,4 +153,35 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     fun byteArrayToBitmap(data: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
+
+    fun readData(firebaseCallback:FirebaseCallback){
+        projectReference = rootNode.getReference("projects/${CurrentUser.userID}")
+        projectReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(Project::class.java)
+                    if (dc2!!.highPriority) {
+                        parentData.add(dc2!!.name)
+                    }
+                }
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(Project::class.java)
+                    if (!dc2!!.highPriority) {
+                        parentData.add(dc2!!.name)
+                    }
+                }
+                firebaseCallback.onCallback(parentData)
+            }
+            override fun onCancelled(error: DatabaseError){
+            }
+        })
+    }
+
+    interface FirebaseCallback{
+        fun onCallback(prjList:ArrayList<String>)
+    }
+    interface FirebaseCallbackLoop{
+        fun onCallback(prjList:ArrayList<String>)
+    }
+
 }
