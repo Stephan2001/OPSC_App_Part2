@@ -48,7 +48,7 @@ class RecycleAdapter(var mContext: Context, val list: MutableList<ParentData>) :
                     childIMG?.setImageBitmap(singleService.bitmap)
                 }
                 childEdit.setOnClickListener {
-                    Log.d("btnPlsWork", "success")
+
                 }
             }
         }

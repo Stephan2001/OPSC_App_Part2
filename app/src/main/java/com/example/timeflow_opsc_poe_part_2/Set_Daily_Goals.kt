@@ -26,7 +26,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
 
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("hh:mm a", Locale.UK)
-    val currentUser = CurrentUser.userID
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var goalsReference : DatabaseReference
 
@@ -41,7 +40,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         }
         // prior values
         rootNode = FirebaseDatabase.getInstance()
-        goalsReference = rootNode.getReference("goals/$currentUser")
+        goalsReference = rootNode.getReference("goals/${CurrentUser.userID}")
 
         findViewById<TextView>(R.id.txtMinDailyTime).setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
@@ -86,12 +85,11 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
-                writegoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString())
+                goalsReference.setValue(DailyGoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString()))
                 this.finish()
             }
         }
     }
-    
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         calender.apply {
@@ -100,7 +98,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         }
         displayFormattedTime1(calender.timeInMillis)
     }
-
 
     fun displayFormattedTime1(timestamp: Long) {
         findViewById<TextView>(R.id.txtMinDailyTime).text = formatter.format(timestamp)
@@ -111,12 +108,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         findViewById<TextView>(R.id.txtMaxDailyTime).text = formatter.format(timestamp)
         Log.i("Formatting", timestamp.toString())
     }
-
-    fun writegoals(min:String, max: String) {
-        var dailyGoals = DailyGoals(min, max)
-        goalsReference.setValue(dailyGoals)
-    }
-
 }
 
 
