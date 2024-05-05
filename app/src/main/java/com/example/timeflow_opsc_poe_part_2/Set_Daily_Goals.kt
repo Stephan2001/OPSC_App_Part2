@@ -89,8 +89,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
             }
         }
     }
-
-
+    
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         calender.apply {

@@ -12,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isEmpty
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -61,11 +62,33 @@ class Project_Create : AppCompatActivity() {
         projectReference = rootNode.getReference("projects/$currentUser")
 
         btnSave.setOnClickListener{
-            writeProject(name.text.toString(), priority)
-            this.finish()
+            val project: EditText = findViewById(R.id.txtProjects)
+            val spinner: Spinner = findViewById(R.id.mySpinner)
+
+            if (project.text.toString().isEmpty() || spinner.isEmpty()){
+                Toast.makeText(
+                    baseContext,
+                    "Values can't be empty.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+            else {
+                writeProject(name.text.toString(), priority)
+                this.finish()
+                Toast.makeText(
+                    baseContext,
+                    "Project added",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
         }
         btnCancelprg.setOnClickListener{
             this.finish()
+            Toast.makeText(
+                baseContext,
+                "Project canceled",
+                Toast.LENGTH_SHORT,
+            ).show()
         }
     }
 

@@ -46,17 +46,7 @@ class Registration_page : AppCompatActivity() {
         }
 
         val btnReg = findViewById<Button>(R.id.btnReg)
-        /*btnReg.setOnClickListener ()
-        {
-            val email: EditText = findViewById(R.id.txtEmail)
-            val pass: EditText = findViewById(R.id.txtPassword) // must be 6 chars long
-            val firstName: EditText = findViewById(R.id.txtName)
-            val lastName: EditText = findViewById(R.id.txtLastName)
-            createAccount(email.text.toString(), pass.text.toString())
-            addProfile(firstName.text.toString(), lastName.text.toString())
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }*/
+
     }
 
     private fun register() {

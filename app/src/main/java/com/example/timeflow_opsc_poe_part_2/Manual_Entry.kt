@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -80,7 +81,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 currentProject = projectsList[p2]
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
@@ -156,9 +156,22 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
 
         val btnSave = findViewById<Button>(R.id.btnSaveprj)
         btnSave.setOnClickListener{
-            writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
-            upLoadImage(uploadToBytes())
-            this.finish()
+            val date: TextView = findViewById(R.id.txtSetDate)
+            val startingTime: TextView = findViewById(R.id.txtStaringTime)
+            val endingTime: TextView = findViewById(R.id.txtEndingTime)
+
+            if(date.text.toString().isEmpty() || startingTime.text.toString().isEmpty() || endingTime.text.toString().isEmpty()){
+                Toast.makeText(
+                    baseContext,
+                    "Values can't be empty.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+            else{
+                writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
+                upLoadImage(uploadToBytes())
+                this.finish()
+            }
         }
 
     }
@@ -232,6 +245,10 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     fun displayFormattedTime2(timestamp: Long) {
         findViewById<TextView>(R.id.txtEndingTime).text = formatter2.format(timestamp)
         Log.i("Formatting", timestamp.toString())
+    }
+
+    fun validateInputs(){
+
     }
 
 }
