@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".GoalsFragment">
 
+    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/label2"
@@ -23,29 +24,15 @@
 
     <Button
         android:id="@+id/btnDailyGoal"
-        android:layout_width="75sp"
-        android:layout_height="72sp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="bottom"
-        android:background="@drawable/buttons"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="42sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="324dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="48dp"
+        android:text="Daily goal"
+        android:background="@drawable/option_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvGoals"
-        app:layout_constraintVertical_bias="0.426" />
-
-    <ListView
-        android:id="@+id/lvGoals"
-        android:layout_width="374dp"
-        android:layout_height="510dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
