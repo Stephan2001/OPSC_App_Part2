@@ -37,7 +37,8 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.UK)
     var currentDate = formatter.format(Date())
     val listData : MutableList<ParentData> = ArrayList()
-    val parentData = ArrayList<String>()
+    var parentData = ArrayList<String>()
+    var childDataData = ArrayList<ChildData>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,10 +94,21 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     fun retrieveTimesheets(){
         Log.w("thisthedate", currentDate)
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$currentDate")
-        listData.clear()// clear list before adding new data
+        childDataData.clear()
         for (project in UserProjects.projectsList) {
-
+            timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$currentDate/$project")
+            timeEntriesReference.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot){
+                    for(snapshot1 in snapshot.children){
+                        val dc2 = snapshot1.getValue(TimesheetEntry::class.java)
+                        
+                        childDataData.add(ChildData("${dc2!!.startTime} - ${dc2!!.endTime}", null))
+                    }
+                    Log.w("thisthedate", childDataData.toString())
+                }
+                override fun onCancelled(error: DatabaseError){
+                }
+            })
         }
     }
 
@@ -168,4 +180,8 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     interface FirebaseCallback{
         fun onCallback(prjList:ArrayList<String>)
     }
+    interface FirebaseCallbackLoop{
+        fun onCallback(prjList:ArrayList<String>)
+    }
+
 }

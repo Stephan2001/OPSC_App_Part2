@@ -200,7 +200,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     }
 
     fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String) {
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date")
+        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date/$project")
         var myRef = timeEntriesReference.push()
         var key = myRef.key
         if (key != null) {
