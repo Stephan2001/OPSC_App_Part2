@@ -44,7 +44,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
     private  lateinit var storage:FirebaseStorage
-    private var arrayAdapter:ArrayAdapter<String>?=null
     var currentProject = ""
     val currentUser = CurrentUser.userID
     var photoRefernece = ""
@@ -198,11 +197,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
         }
-    }
-
-    // this method is used to reconvert to bitarray for imageview
-    fun byteArrayToBitmap(data: ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
 
     fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String) {

@@ -40,11 +40,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 UserProjects.projectsList.clear()
                 for(snapshot1 in snapshot.children){
                     val dc2 = snapshot1.getValue(Project::class.java)
-                    if (dc2 != null) {
+                    if (dc2 != null && dc2.highPriority) {
                         UserProjects.projectsList.add(dc2.name)
                         Log.w("errrrr", dc2.name)
                     }
                 }
+                for(snapshot1 in snapshot.children){
+                    val dc2 = snapshot1.getValue(Project::class.java)
+                    if (dc2 != null && !dc2.highPriority) {
+                        UserProjects.projectsList.add(dc2.name)
+                        Log.w("errrrr", dc2.name)
+                    }
+                }
+
             }
             override fun onCancelled(error: DatabaseError){
 
