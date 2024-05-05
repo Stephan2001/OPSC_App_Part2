@@ -101,7 +101,8 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 override fun onDataChange(snapshot: DataSnapshot){
                     for(snapshot1 in snapshot.children){
                         val dc2 = snapshot1.getValue(TimesheetEntry::class.java)
-                        
+                        val bitmap:Bitmap
+
                         childDataData.add(ChildData("${dc2!!.startTime} - ${dc2!!.endTime}", null))
                     }
                     Log.w("thisthedate", childDataData.toString())
@@ -180,7 +181,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     interface FirebaseCallback{
         fun onCallback(prjList:ArrayList<String>)
     }
-    interface FirebaseCallbackLoop{
+    interface FirebaseCallbackIMG{
         fun onCallback(prjList:ArrayList<String>)
     }
 
