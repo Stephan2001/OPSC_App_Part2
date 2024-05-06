@@ -74,7 +74,6 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 UserProjects.projectsList.clear()
                 UserProjects.projectsList = prjList
                 retrieveTimesheets()
-                updateDisplay()
             }
         })
 

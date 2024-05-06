@@ -26,6 +26,7 @@
         android:layout_height="46dp"
         android:layout_marginTop="56dp"
         android:spinnerMode="dropdown"
+        android:background="@color/lightPurple"
         android:theme="@style/Base.Theme.TimeFlow_OPSC_POE_PART_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.275"
