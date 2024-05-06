@@ -24,8 +24,8 @@
 
     <TextView
         android:id="@+id/lblMinTImeDaily"
-        android:layout_width="176dp"
-        android:layout_height="48dp"
+        android:layout_width="162dp"
+        android:layout_height="86dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="60dp"
         android:text="Minumum time:"
@@ -44,10 +44,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveTimeDaily"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.322"
+        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toEndOf="@+id/lblMaxTImeDaily"
         app:layout_constraintTop_toBottomOf="@+id/txtMinDailyTime"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.324" />
 
     <TextView
         android:id="@+id/txtMinDailyTime"
@@ -65,10 +65,10 @@
 
     <TextView
         android:id="@+id/lblMaxTImeDaily"
-        android:layout_width="176dp"
-        android:layout_height="48dp"
+        android:layout_width="160dp"
+        android:layout_height="94dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="36dp"
         android:text="Maximum time:"
         android:textColor="@color/white"
         android:textSize="24sp"

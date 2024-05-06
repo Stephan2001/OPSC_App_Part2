@@ -45,6 +45,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     var currentDate = SelectedDate.date
     val listData : MutableList<ParentData> = ArrayList()
     var parentData = ArrayList<String>()
+    var bitmapList = ArrayList<Bitmap>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -214,6 +215,7 @@ class ScheduleFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val mountainsRef = storageRef.child("images/$currentUser/${reff}")
         val ONE_MEGABYTE: Long = 1024 * 1024
         mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+            bitmapList.add(byteArrayToBitmap(it))
             firebaseCallback.onCallback(byteArrayToBitmap(it))
         }.addOnFailureListener {
             // Handle any errors
