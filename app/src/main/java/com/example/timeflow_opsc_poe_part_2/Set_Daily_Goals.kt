@@ -1,6 +1,7 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -86,6 +87,7 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
                 goalsReference.setValue(DailyGoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString()))
+                Daylies.goal = txtMinDailyTime.text.toString()+ " - " +txtMaxDailyTime.text.toString()
                 this.finish()
             }
         }
