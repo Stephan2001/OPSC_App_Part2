@@ -26,6 +26,8 @@
         android:layout_width="335dp"
         android:layout_height="53dp"
         android:layout_marginTop="32dp"
+        android:background="@color/lightPurple"
+        android:popupBackground="@color/purple"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

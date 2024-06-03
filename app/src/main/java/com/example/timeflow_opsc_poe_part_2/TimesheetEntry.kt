@@ -5,5 +5,6 @@ data class TimesheetEntry(
     var project: String = "",
     var startTime: String = "",
     var endTime: String = "",
+    var desc: String = "",
     var photoReference: String= ""
 )

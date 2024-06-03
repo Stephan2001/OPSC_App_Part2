@@ -44,7 +44,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     private  lateinit var timeEntriesReference : DatabaseReference
     private  lateinit var imageView:ImageView
     private  lateinit var storage:FirebaseStorage
-    private var arrayAdapter:ArrayAdapter<String>?=null
     var currentProject = ""
     val currentUser = CurrentUser.userID
     var photoRefernece = ""
@@ -160,6 +159,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
             val date: TextView = findViewById(R.id.txtSetDate)
             val startingTime: TextView = findViewById(R.id.txtStaringTime)
             val endingTime: TextView = findViewById(R.id.txtEndingTime)
+            val desc: EditText = findViewById(R.id.txtDesc)
 
             if(date.text.toString().isEmpty() || startingTime.text.toString().isEmpty() || endingTime.text.toString().isEmpty()){
                 Toast.makeText(
@@ -169,7 +169,7 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
                 ).show()
             }
             else{
-                writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(), endingTime.text.toString())
+                writeTimeEntry(date.text.toString(), currentProject, startingTime.text.toString(),desc.text.toString(), endingTime.text.toString())
                 upLoadImage(uploadToBytes())
                 this.finish()
             }
@@ -200,19 +200,14 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
         }
     }
 
-    // this method is used to reconvert to bitarray for imageview
-    fun byteArrayToBitmap(data: ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(data, 0, data.size)
-    }
-
-    fun writeTimeEntry(date: String, project: String, startTime: String, endTime: String) {
-        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date")
+    fun writeTimeEntry(date: String, project: String, startTime: String, desc:String, endTime: String) {
+        timeEntriesReference = rootNode.getReference("timeEntries/$currentUser/$date/$project")
         var myRef = timeEntriesReference.push()
         var key = myRef.key
         if (key != null) {
             photoRefernece = key + "IMG"
         }
-        val timeEntry = TimesheetEntry( date, project, startTime, endTime, photoRefernece)
+        val timeEntry = TimesheetEntry( date, project, startTime, endTime, desc ,photoRefernece)
         if (key != null) {
             timeEntriesReference.child(key).setValue(timeEntry)
         }
@@ -246,10 +241,6 @@ class Manual_Entry : AppCompatActivity(), DatePickerDialog.OnDateSetListener, Ti
     fun displayFormattedTime2(timestamp: Long) {
         findViewById<TextView>(R.id.txtEndingTime).text = formatter2.format(timestamp)
         Log.i("Formatting", timestamp.toString())
-    }
-
-    fun validateInputs(){
-
     }
 
 }

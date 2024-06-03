@@ -1,6 +1,7 @@
 package com.example.timeflow_opsc_poe_part_2
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,7 +27,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
 
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("hh:mm a", Locale.UK)
-    val currentUser = CurrentUser.userID
     private  lateinit var rootNode : FirebaseDatabase
     private  lateinit var goalsReference : DatabaseReference
 
@@ -41,8 +41,8 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         }
         // prior values
         rootNode = FirebaseDatabase.getInstance()
-        goalsReference = rootNode.getReference("goals/$currentUser")
-        retrieveGoals()
+        goalsReference = rootNode.getReference("goals/${CurrentUser.userID}")
+
         findViewById<TextView>(R.id.txtMinDailyTime).setOnClickListener {
             displayFormattedTime1(calender.timeInMillis)
             TimePickerDialog(
@@ -87,11 +87,11 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         btnSaveTimeDaily.setOnClickListener{
             if(txtMinDailyTime != null && txtMaxDailyTime != null){
                 goalsReference.setValue(DailyGoals(txtMinDailyTime.text.toString(), txtMaxDailyTime.text.toString()))
+                Daylies.goal = txtMinDailyTime.text.toString()+ " - " +txtMaxDailyTime.text.toString()
                 this.finish()
             }
         }
     }
-    
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         calender.apply {
@@ -101,7 +101,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
         displayFormattedTime1(calender.timeInMillis)
     }
 
-
     fun displayFormattedTime1(timestamp: Long) {
         findViewById<TextView>(R.id.txtMinDailyTime).text = formatter.format(timestamp)
         Log.i("Formatting", timestamp.toString())
@@ -110,30 +109,6 @@ class Set_Daily_Goals : AppCompatActivity(), TimePickerDialog.OnTimeSetListener 
     fun displayFormattedTime2(timestamp: Long) {
         findViewById<TextView>(R.id.txtMaxDailyTime).text = formatter.format(timestamp)
         Log.i("Formatting", timestamp.toString())
-    }
-
-    fun writegoals(min:String, max: String) {
-        val dailyGoals = DailyGoals(min, max)
-        goalsReference.setValue(dailyGoals)
-    }
-
-    fun retrieveGoals(){
-        goalsReference.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot){
-                for(snapshot1 in snapshot.children){
-                    val dc2 = snapshot1.getValue(DailyGoals::class.java)
-                    var txtMinDailyTime = findViewById<TextView>(R.id.txtMinDailyTime)
-                    var txtMaxDailyTime = findViewById<TextView>(R.id.txtMaxDailyTime)
-                    if (dc2 != null) {
-                        txtMinDailyTime.text = dc2.DailyMin
-                        txtMaxDailyTime.text = dc2.DailyMax
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError){
-
-            }
-        })
     }
 }
 

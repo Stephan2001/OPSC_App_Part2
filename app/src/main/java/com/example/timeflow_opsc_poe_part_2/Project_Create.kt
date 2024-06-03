@@ -39,11 +39,10 @@ class Project_Create : AppCompatActivity() {
         val spinnerID = findViewById<Spinner>(R.id.mySpinner)
         val arrayAdapt = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, priorities)
         spinnerID.adapter = arrayAdapt
-        var priority = false
 
         spinnerID?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (priorities[p2] == "false"){
+                if (priorities[p2] == "Low"){
                     priority = false
                 }
                 else{

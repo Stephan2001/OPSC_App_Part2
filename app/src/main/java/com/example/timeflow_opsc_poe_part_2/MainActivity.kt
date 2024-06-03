@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 UserProjects.projectsList.clear()
                 for(snapshot1 in snapshot.children){
                     val dc2 = snapshot1.getValue(Project::class.java)
-                    if (dc2 != null) {
+                    if (dc2 != null && dc2.highPriority) {
                         UserProjects.projectsList.add(dc2.name)
                         Log.w("errrrr", dc2.name)
                     }

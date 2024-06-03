@@ -64,12 +64,12 @@
 
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_width="110dp"
-        android:layout_height="52dp"
+        android:layout_width="109dp"
+        android:layout_height="58dp"
         android:layout_marginTop="72dp"
+        android:background="@drawable/login_button"
         android:text="Sign In"
         android:textSize="16sp"
-        android:background="@drawable/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,11 +77,11 @@
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="110dp"
-        android:layout_height="52dp"
+        android:layout_width="117dp"
+        android:layout_height="58dp"
+        android:background="@drawable/login_button"
         android:text="Register"
         android:textSize="16sp"
-        android:background="@drawable/login_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

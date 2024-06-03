@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.timeflow_opsc_poe_part_2.databinding.ActivityLoginPageBinding
@@ -17,6 +18,7 @@ import com.example.timeflow_opsc_poe_part_2.databinding.ActivityRegistrationPage
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import kotlin.concurrent.thread
 
 class Login_Page : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
